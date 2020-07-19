@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>pip download &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="pip uninstall" href="pip_uninstall.html" />
+    <link rel="prev" title="pip install" href="pip_install.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_uninstall.html" title="pip uninstall"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="pip_install.html" title="pip install"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pip-download">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">pip download</a><a class="headerlink" href="#pip-download" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pip-download" id="id2">pip download</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usage" id="id3">Usage</a></p></li>
+<li><p><a class="reference internal" href="#description" id="id4">Description</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id5">Overview</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#options" id="id6">Options</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id7">Examples</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id3">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">download</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">requirement</span> <span class="n">specifier</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">package</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">options</span><span class="p">]</span> <span class="o">...</span>
+<span class="n">pip</span> <span class="n">download</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">requirements</span> <span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">package</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">options</span><span class="p">]</span> <span class="o">...</span>
+<span class="n">pip</span> <span class="n">download</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">vcs</span> <span class="n">project</span> <span class="n">url</span><span class="o">&gt;</span> <span class="o">...</span>
+<span class="n">pip</span> <span class="n">download</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">local</span> <span class="n">project</span> <span class="n">path</span><span class="o">&gt;</span> <span class="o">...</span>
+<span class="n">pip</span> <span class="n">download</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">archive</span> <span class="n">url</span><span class="o">/</span><span class="n">path</span><span class="o">&gt;</span> <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2><a class="toc-backref" href="#id4">Description</a><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><p>Download packages from:</p>
+<ul class="simple">
+<li><p>PyPI (and other indexes) using requirement specifiers.</p></li>
+<li><p>VCS project urls.</p></li>
+<li><p>Local project directories.</p></li>
+<li><p>Local or remote source archives.</p></li>
+</ul>
+<p>pip also supports downloading from “requirements files”, which provide
+an easy way to specify a whole environment to be downloaded.</p>
+</p>
+<div class="section" id="overview">
+<h3><a class="toc-backref" href="#id5">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">download</span></code> does the same resolution and downloading as <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>,
+but instead of installing the dependencies, it collects the downloaded
+distributions into the directory provided (defaulting to the current
+directory). This directory can later be passed as the value to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
+<span class="pre">--find-links</span></code> to facilitate offline or locked down package installation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">download</span></code> with the <code class="docutils literal notranslate"><span class="pre">--platform</span></code>, <code class="docutils literal notranslate"><span class="pre">--python-version</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--implementation</span></code>, and <code class="docutils literal notranslate"><span class="pre">--abi</span></code> options provides the ability to fetch
+dependencies for an interpreter and system other than the ones that pip is
+running on. <code class="docutils literal notranslate"><span class="pre">--only-binary=:all:</span></code> or <code class="docutils literal notranslate"><span class="pre">--no-deps</span></code> is required when using any
+of these options. It is important to note that these options all default to the
+current system/interpreter, and not to the most restrictive constraints (e.g.
+platform any, abi none, etc). To avoid fetching dependencies that happen to
+match the constraint of the current interpreter (but not your target one), it
+is recommended to specify all of these options if you are specifying one of
+them. Generic dependencies (e.g. universal wheels, or dependencies with no
+platform, abi, or implementation constraints) will still match an over-
+constrained download requirement.</p>
+</div>
+</div>
+<div class="section" id="options">
+<h2><a class="toc-backref" href="#id6">Options</a><a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p><span class="target" id="download-constraint"></span><dl class="option">
+<dt id="cmdoption-c">
+<code class="sig-name descname">-c</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--constraint</code><code class="sig-prename descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constrain versions using the given constraints file. This option can be used multiple times.</p>
+</dd></dl>
+
+<span class="target" id="download-requirement"></span><dl class="option">
+<dt id="cmdoption-r">
+<code class="sig-name descname">-r</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--requirement</code><code class="sig-prename descclassname"> &lt;file&gt;</code><a class="headerlink" href="#cmdoption-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install from the given requirements file. This option can be used multiple times.</p>
+</dd></dl>
+
+<span class="target" id="download-build"></span><dl class="option">
+<dt id="cmdoption-b">
+<code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--build</code><code class="sig-prename descclassname"> &lt;dir&gt;</code><a class="headerlink" href="#cmdoption-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>(DEPRECATED) Directory to unpack packages into and build in. Note that an initial build still takes place in a temporary directory. The location of temporary directories can be controlled by setting the TMPDIR environment variable (TEMP on Windows) appropriately. When passed, build directories are not cleaned in case of failures.</p>
+</dd></dl>
+
+<span class="target" id="download-no-deps"></span><dl class="option">
+<dt id="cmdoption-no-deps">
+<code class="sig-name descname">--no-deps</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-deps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t install package dependencies.</p>
+</dd></dl>
+
+<span class="target" id="download-global-option"></span><dl class="option">
+<dt id="cmdoption-global-option">
+<code class="sig-name descname">--global-option</code><code class="sig-prename descclassname"> &lt;options&gt;</code><a class="headerlink" href="#cmdoption-global-option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra global options to be supplied to the setup.py call before the install command.</p>
+</dd></dl>
+
+<span class="target" id="download-no-binary"></span><dl class="option">
+<dt id="cmdoption-no-binary">
+<code class="sig-name descname">--no-binary</code><code class="sig-prename descclassname"> &lt;format_control&gt;</code><a class="headerlink" href="#cmdoption-no-binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not use binary packages. Can be supplied multiple times, and each time adds to the existing value. Accepts either “:all:” to disable all binary packages, “:none:” to empty the set (notice the colons), or one or more package names with commas between them (no colons). Note that some packages are tricky to compile and may fail to install when this option is used on them.</p>
+</dd></dl>
+
+<span class="target" id="download-only-binary"></span><dl class="option">
+<dt id="cmdoption-only-binary">
+<code class="sig-name descname">--only-binary</code><code class="sig-prename descclassname"> &lt;format_control&gt;</code><a class="headerlink" href="#cmdoption-only-binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not use source packages. Can be supplied multiple times, and each time adds to the existing value. Accepts either “:all:” to disable all source packages, “:none:” to empty the set, or one or more package names with commas between them. Packages without binary distributions will fail to install when this option is used on them.</p>
+</dd></dl>
+
+<span class="target" id="download-prefer-binary"></span><dl class="option">
+<dt id="cmdoption-prefer-binary">
+<code class="sig-name descname">--prefer-binary</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-prefer-binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prefer older binary packages over newer source packages.</p>
+</dd></dl>
+
+<span class="target" id="download-src"></span><dl class="option">
+<dt id="cmdoption-src">
+<code class="sig-name descname">--src</code><code class="sig-prename descclassname"> &lt;dir&gt;</code><a class="headerlink" href="#cmdoption-src" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory to check out editable projects into. The default in a virtualenv is “&lt;venv path&gt;/src”. The default for global installs is “&lt;current dir&gt;/src”.</p>
+</dd></dl>
+
+<span class="target" id="download-pre"></span><dl class="option">
+<dt id="cmdoption-pre">
+<code class="sig-name descname">--pre</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-pre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include pre-release and development versions. By default, pip only finds stable versions.</p>
+</dd></dl>
+
+<span class="target" id="download-require-hashes"></span><dl class="option">
+<dt id="cmdoption-require-hashes">
+<code class="sig-name descname">--require-hashes</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-require-hashes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Require a hash to check each requirement against, for repeatable installs. This option is implied when any package in a requirements file has a --hash option.</p>
+</dd></dl>
+
+<span class="target" id="download-progress-bar"></span><dl class="option">
+<dt id="cmdoption-progress-bar">
+<code class="sig-name descname">--progress-bar</code><code class="sig-prename descclassname"> &lt;progress_bar&gt;</code><a class="headerlink" href="#cmdoption-progress-bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify type of progress to be displayed [off|on|ascii|pretty|emoji] (default: on)</p>
+</dd></dl>
+
+<span class="target" id="download-no-build-isolation"></span><dl class="option">
+<dt id="cmdoption-no-build-isolation">
+<code class="sig-name descname">--no-build-isolation</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-build-isolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable isolation when building a modern source distribution. Build dependencies specified by PEP 518 must be already installed if this option is used.</p>
+</dd></dl>
+
+<span class="target" id="download-use-pep517"></span><dl class="option">
+<dt id="cmdoption-use-pep517">
+<code class="sig-name descname">--use-pep517</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-use-pep517" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use PEP 517 for building source distributions (use --no-use-pep517 to force legacy behaviour).</p>
+</dd></dl>
+
+<span class="target" id="download-dest"></span><dl class="option">
+<dt id="cmdoption-d">
+<code class="sig-name descname">-d</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--dest</code><code class="sig-prename descclassname"> &lt;dir&gt;</code><a class="headerlink" href="#cmdoption-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download packages into &lt;dir&gt;.</p>
+</dd></dl>
+
+<span class="target" id="download-platform"></span><dl class="option">
+<dt id="cmdoption-platform">
+<code class="sig-name descname">--platform</code><code class="sig-prename descclassname"> &lt;platform&gt;</code><a class="headerlink" href="#cmdoption-platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only use wheels compatible with &lt;platform&gt;. Defaults to the platform of the running system.</p>
+</dd></dl>
+
+<span class="target" id="download-python-version"></span><dl class="option">
+<dt id="cmdoption-python-version">
+<code class="sig-name descname">--python-version</code><code class="sig-prename descclassname"> &lt;python_version&gt;</code><a class="headerlink" href="#cmdoption-python-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Python interpreter version to use for wheel and “Requires-Python”
+compatibility checks. Defaults to a version derived from the running
+interpreter. The version can be specified using up to three dot-separated
+integers (e.g. “3” for 3.0.0, “3.7” for 3.7.0, or “3.7.3”). A major-minor
+version can also be given as a string without dots (e.g. “37” for 3.7.0).</p>
+</dd></dl>
+
+<span class="target" id="download-implementation"></span><dl class="option">
+<dt id="cmdoption-implementation">
+<code class="sig-name descname">--implementation</code><code class="sig-prename descclassname"> &lt;implementation&gt;</code><a class="headerlink" href="#cmdoption-implementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only use wheels compatible with Python implementation &lt;implementation&gt;, e.g. ‘pp’, ‘jy’, ‘cp’,  or ‘ip’. If not specified, then the current interpreter implementation is used.  Use ‘py’ to force implementation-agnostic wheels.</p>
+</dd></dl>
+
+<span class="target" id="download-abi"></span><dl class="option">
+<dt id="cmdoption-abi">
+<code class="sig-name descname">--abi</code><code class="sig-prename descclassname"> &lt;abi&gt;</code><a class="headerlink" href="#cmdoption-abi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only use wheels compatible with Python abi &lt;abi&gt;, e.g. ‘pypy_41’.  If not specified, then the current interpreter abi tag is used.  Generally you will need to specify --implementation, --platform, and --python-version when using this option.</p>
+</dd></dl>
+
+<span class="target" id="download-no-clean"></span><dl class="option">
+<dt id="cmdoption-no-clean">
+<code class="sig-name descname">--no-clean</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t clean up build directories.</p>
+</dd></dl>
+
+</p>
+<p><span class="target" id="download-index-url"></span><dl class="option">
+<dt id="cmdoption-i">
+<code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--index-url</code><code class="sig-prename descclassname"> &lt;url&gt;</code><a class="headerlink" href="#cmdoption-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base URL of the Python Package Index (default <a class="reference external" href="https://pypi.org/simple">https://pypi.org/simple</a>). This should point to a repository compliant with PEP 503 (the simple repository API) or a local directory laid out in the same format.</p>
+</dd></dl>
+
+<span class="target" id="download-extra-index-url"></span><dl class="option">
+<dt id="cmdoption-extra-index-url">
+<code class="sig-name descname">--extra-index-url</code><code class="sig-prename descclassname"> &lt;url&gt;</code><a class="headerlink" href="#cmdoption-extra-index-url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extra URLs of package indexes to use in addition to --index-url. Should follow the same rules as --index-url.</p>
+</dd></dl>
+
+<span class="target" id="download-no-index"></span><dl class="option">
+<dt id="cmdoption-no-index">
+<code class="sig-name descname">--no-index</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore package index (only looking at --find-links URLs instead).</p>
+</dd></dl>
+
+<span class="target" id="download-find-links"></span><dl class="option">
+<dt id="cmdoption-f">
+<code class="sig-name descname">-f</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--find-links</code><code class="sig-prename descclassname"> &lt;url&gt;</code><a class="headerlink" href="#cmdoption-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files. If a local path or <a class="reference external" href="file://">file://</a> URL that’s a directory,  then look for archives in the directory listing. Links to VCS project URLs are not supported.</p>
+</dd></dl>
+
+</p>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id7">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Download a package and all of its dependencies</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download SomePackage
+$ pip download -d . SomePackage  # equivalent to above
+$ pip download --no-index --find-links=/tmp/wheelhouse -d /tmp/otherwheelhouse SomePackage
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><dl>
+<dt>Download a package and all of its dependencies with OSX specific interpreter constraints.</dt><dd><p>This forces OSX 10.10 or lower compatibility. Since OSX deps are forward compatible,
+this will also match <code class="docutils literal notranslate"><span class="pre">macosx-10_9_x86_64</span></code>, <code class="docutils literal notranslate"><span class="pre">macosx-10_8_x86_64</span></code>, <code class="docutils literal notranslate"><span class="pre">macosx-10_8_intel</span></code>,
+etc.
+It will also match deps with platform <code class="docutils literal notranslate"><span class="pre">any</span></code>. Also force the interpreter version to <code class="docutils literal notranslate"><span class="pre">27</span></code>
+(or more generic, i.e. <code class="docutils literal notranslate"><span class="pre">2</span></code>) and implementation to <code class="docutils literal notranslate"><span class="pre">cp</span></code> (or more generic, i.e. <code class="docutils literal notranslate"><span class="pre">py</span></code>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download \
+    --only-binary=:all: \
+    --platform macosx-10_10_x86_64 \
+    --python-version 27 \
+    --implementation cp \
+    SomePackage
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Download a package and its dependencies with linux specific constraints.</dt><dd><p>Force the interpreter to be any minor version of py3k, and only accept
+<code class="docutils literal notranslate"><span class="pre">cp34m</span></code> or <code class="docutils literal notranslate"><span class="pre">none</span></code> as the abi.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download \
+    --only-binary=:all: \
+    --platform linux_x86_64 \
+    --python-version 3 \
+    --implementation cp \
+    --abi cp34m \
+    SomePackage
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>Force platform, implementation, and abi agnostic deps.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download \
+    --only-binary=:all: \
+    --platform any \
+    --python-version 3 \
+    --implementation py \
+    --abi none \
+    SomePackage
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Even when overconstrained, this will still correctly fetch the pip universal wheel.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download \
+    --only-binary=:all: \
+    --platform linux_x86_64 \
+    --python-version 33 \
+    --implementation cp \
+    --abi cp34m \
+    pip&gt;=8
+$ ls pip-8.1.1-py2.py3-none-any.whl
+pip-8.1.1-py2.py3-none-any.whl
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pip.html">pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_install.html">pip install</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pip download</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pip_uninstall.html">pip uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_freeze.html">pip freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_list.html">pip list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_show.html">pip show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_search.html">pip search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_cache.html">pip cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_check.html">pip check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_config.html">pip config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_wheel.html">pip wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_hash.html">pip hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_debug.html">pip debug</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pip_install.html"
+                        title="previous chapter">pip install</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pip_uninstall.html"
+                        title="next chapter">pip uninstall</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_uninstall.html" title="pip uninstall"
+             >next</a></li>
+        <li class="right" >
+          <a href="pip_install.html" title="pip install"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

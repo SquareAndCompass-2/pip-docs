@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>pip config &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="pip wheel" href="pip_wheel.html" />
+    <link rel="prev" title="pip check" href="pip_check.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_wheel.html" title="pip wheel"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="pip_check.html" title="pip check"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pip-config">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">pip config</a><a class="headerlink" href="#pip-config" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pip-config" id="id2">pip config</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usage" id="id3">Usage</a></p></li>
+<li><p><a class="reference internal" href="#description" id="id4">Description</a></p></li>
+<li><p><a class="reference internal" href="#options" id="id5">Options</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id3">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="nb">list</span>
+<span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">editor</span> <span class="o">&lt;</span><span class="n">editor</span><span class="o">-</span><span class="n">path</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">edit</span>
+
+<span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">get</span> <span class="n">name</span>
+<span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="nb">set</span> <span class="n">name</span> <span class="n">value</span>
+<span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">unset</span> <span class="n">name</span>
+<span class="n">pip</span> <span class="n">config</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">file</span><span class="o">-</span><span class="n">option</span><span class="o">&gt;</span><span class="p">]</span> <span class="n">debug</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2><a class="toc-backref" href="#id4">Description</a><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><p>Manage local and global configuration.</p>
+<p>Subcommands:</p>
+<ul class="simple">
+<li><p>list: List the active configuration (or from the file specified)</p></li>
+<li><p>edit: Edit the configuration file in an editor</p></li>
+<li><p>get: Get the value associated with name</p></li>
+<li><p>set: Set the name=value</p></li>
+<li><p>unset: Unset the value associated with name</p></li>
+<li><p>debug: List the configuration files and values defined under them</p></li>
+</ul>
+<p>If none of --user, --global and --site are passed, a virtual
+environment configuration file is used if one is active and the file
+exists. Otherwise, all modifications happen on the to the user file by
+default.</p>
+</p>
+</div>
+<div class="section" id="options">
+<h2><a class="toc-backref" href="#id5">Options</a><a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p><span class="target" id="config-editor"></span><dl class="option">
+<dt id="cmdoption-editor">
+<code class="sig-name descname">--editor</code><code class="sig-prename descclassname"> &lt;editor&gt;</code><a class="headerlink" href="#cmdoption-editor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Editor to use to edit the file. Uses VISUAL or EDITOR environment variables if not provided.</p>
+</dd></dl>
+
+<span class="target" id="config-global"></span><dl class="option">
+<dt id="cmdoption-global">
+<code class="sig-name descname">--global</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the system-wide configuration file only</p>
+</dd></dl>
+
+<span class="target" id="config-user"></span><dl class="option">
+<dt id="cmdoption-user">
+<code class="sig-name descname">--user</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the user configuration file only</p>
+</dd></dl>
+
+<span class="target" id="config-site"></span><dl class="option">
+<dt id="cmdoption-site">
+<code class="sig-name descname">--site</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the current environment configuration file only</p>
+</dd></dl>
+
+</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pip.html">pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_install.html">pip install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_download.html">pip download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_uninstall.html">pip uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_freeze.html">pip freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_list.html">pip list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_show.html">pip show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_search.html">pip search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_cache.html">pip cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_check.html">pip check</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pip config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pip_wheel.html">pip wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_hash.html">pip hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_debug.html">pip debug</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pip_check.html"
+                        title="previous chapter">pip check</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pip_wheel.html"
+                        title="next chapter">pip wheel</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_wheel.html" title="pip wheel"
+             >next</a></li>
+        <li class="right" >
+          <a href="pip_check.html" title="pip check"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

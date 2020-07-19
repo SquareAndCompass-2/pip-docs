@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Options that control the installation process &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="next" title="Release process" href="../release-process.html" />
+    <link rel="prev" title="Finding and choosing files (index and PackageFinder)" href="package-finding.html" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/py.png" />
+    
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../release-process.html" title="Release process"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="package-finding.html" title="Finding and choosing files (index and PackageFinder)"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="options-that-control-the-installation-process">
+<h1>Options that control the installation process<a class="headerlink" href="#options-that-control-the-installation-process" title="Permalink to this headline">¶</a></h1>
+<p>When installing packages, pip chooses a distribution file, and installs it in
+the user’s environment. There are many choices involved in deciding which file
+to install, and these are controlled by a variety of options.</p>
+<div class="section" id="controlling-what-gets-installed">
+<h2>Controlling what gets installed<a class="headerlink" href="#controlling-what-gets-installed" title="Permalink to this headline">¶</a></h2>
+<p>These options directly affect how the resolver uses the list of available
+distribution files to decide which one to install. So these modify the
+resolution algorithm itself, rather than the input to that algorithm.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--upgrade</span></code></p>
+<p>Allow installing a newer version of an installed package. In principle, this
+option actually affects “what gets considered”, in the sense that it allows
+the resolver to see other versions of installed packages. Without
+<code class="docutils literal notranslate"><span class="pre">--upgrade</span></code>, the resolver will only see the installed version as a
+candidate.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--upgrade-strategy</span></code></p>
+<p>This option affects which packages are allowed to be installed. It is only
+relevant if <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> is specified. The base behaviour is to allow
+packages specified on pip’s command line to be upgraded. This option controls
+what <em>other</em> packages can be upgraded:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eager</span></code> - all packages will be upgraded to the latest possible version.
+It should be noted here that pip’s current resolution algorithm isn’t even
+aware of packages other than those specified on the command line, and
+those identified as dependencies. This may or may not be true of the new
+resolver.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">only-if-needed</span></code> - packages are only upgraded if they are named in the
+pip command or a requirement file (i.e, they are direct requirements), or
+an upgraded parent needs a later version of the dependency than is
+currently installed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to-satisfy-only</span></code> (<strong>undocumented</strong>) - packages are not upgraded (not
+even direct requirements) unless the currently installed version fails to
+satisfy a requirement (either explicitly specified or a dependency).</p></li>
+</ul>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">--force-reinstall</span></code></p>
+<p>Doesn’t affect resolution, but if the resolved result is the same as what is
+currently installed, uninstall and reinstall it rather than leaving the
+current version in place. This occurs even if <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> is not set.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--ignore-installed</span></code></p>
+<p>Act as if the currently installed version isn’t there - so don’t care about
+<code class="docutils literal notranslate"><span class="pre">--upgrade</span></code>, and don’t uninstall before (re-)installing.</p>
+</div>
+<div class="section" id="controlling-what-gets-considered">
+<h2>Controlling what gets considered<a class="headerlink" href="#controlling-what-gets-considered" title="Permalink to this headline">¶</a></h2>
+<p>These options affect the list of distribution files that the resolver will
+consider as candidates for installation. As such, they affect the data that
+the resolver has to work with, rather than influencing what pip does with the
+resolution result.</p>
+<p>Prereleases</p>
+<p><code class="docutils literal notranslate"><span class="pre">--pre</span></code></p>
+<p>Source vs Binary</p>
+<p><code class="docutils literal notranslate"><span class="pre">--no-binary</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--only-binary</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--prefer-binary</span></code></p>
+<p>Wheel tag specification</p>
+<p><code class="docutils literal notranslate"><span class="pre">--platform</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--implementation</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--abi</span></code></p>
+<p>Index options</p>
+<p><code class="docutils literal notranslate"><span class="pre">--index-url</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--extra-index-url</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--no-index</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--find-links</span></code></p>
+</div>
+<div class="section" id="controlling-dependency-data">
+<h2>Controlling dependency data<a class="headerlink" href="#controlling-dependency-data" title="Permalink to this headline">¶</a></h2>
+<p>These options control what dependency data the resolver sees for any given
+package (or, in the case of <code class="docutils literal notranslate"><span class="pre">--python-version</span></code>, the environment information
+the resolver uses to <em>check</em> the dependency).</p>
+<p><code class="docutils literal notranslate"><span class="pre">--no-deps</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--python-version</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--ignore-requires-python</span></code></p>
+</div>
+<div class="section" id="special-cases">
+<h2>Special cases<a class="headerlink" href="#special-cases" title="Permalink to this headline">¶</a></h2>
+<p>These need further investigation. They affect the install process, but not
+necessarily resolution or what gets installed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--require-hashes</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--constraint</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--editable</span> <span class="pre">&lt;LOCATION&gt;</span></code></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture of pip’s internals</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Broad functionality overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anatomy.html">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration-files.html">Configuration File Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="package-finding.html"
+                        title="previous chapter">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../release-process.html"
+                        title="next chapter">Release process</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../release-process.html" title="Release process"
+             >next</a></li>
+        <li class="right" >
+          <a href="package-finding.html" title="Finding and choosing files (index and PackageFinder)"
+             >previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

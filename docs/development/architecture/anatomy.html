@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Repository anatomy &amp; directory structure &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="next" title="Configuration File Handling" href="configuration-files.html" />
+    <link rel="prev" title="Broad functionality overview" href="overview.html" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/py.png" />
+    
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="configuration-files.html" title="Configuration File Handling"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Broad functionality overview"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If you’re
+interested in helping out, please let us know in the <a class="reference external" href="https://github.com/pypa/pip/issues/6831">tracking issue</a>.</p>
+</div>
+<div class="section" id="repository-anatomy-directory-structure">
+<h1>Repository anatomy &amp; directory structure<a class="headerlink" href="#repository-anatomy-directory-structure" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code>’s codebase (<a class="reference external" href="https://github.com/pypa/pip/">GitHub repository</a>) is structured as a standard Python package.</p>
+<div class="section" id="root-and-tools">
+<h2>Root and tools<a class="headerlink" href="#root-and-tools" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">README</span></code>, license, <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, and so on are in the top level.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTHORS.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NEWS.rst</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README.rst</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tox.ini</span></code> -- <code class="docutils literal notranslate"><span class="pre">pip</span></code> uses Tox, an automation tool, configured by this <a class="reference external" href="https://github.com/pypa/pip/blob/master/tox.ini">tox.ini</a> file. <code class="docutils literal notranslate"><span class="pre">tox.ini</span></code> describes a few environments <code class="docutils literal notranslate"><span class="pre">pip</span></code> uses during development for simplifying how tests are run (complicated situation there). Example: <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">-py36</span></code>. We can run tests for different versions of Python by changing “36” to “27” or similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.coveragerc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.gitignore</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.mailmap</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.readthedocs.yml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/</span></code> <em>[documentation, built with Sphinx]</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">html/</span></code> <em>[sources to HTML documentation avail. online]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">man/</span></code> has man pages the distros can use by running <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">pip</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip_sphinxext.py</span></code> <em>[an extension -- pip-specific plugins to Sphinx that do not apply to other packages]</em></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">news/</span></code> <em>[pip stores news fragments… Every time pip makes a user-facing change, a file is added to this directory (usually a short note referring to a GitHub issue) with the right extension &amp; name so it gets included in changelog…. So every release the maintainers will be deleting old files in this directory? Yes - we use the towncrier automation to generate a NEWS file, and auto-delete old stuff. There’s more about this in the contributor documentation!]</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">template.rst</span></code> <em>[template for changelog -- this is a file towncrier uses…. Is this jinja? I don’t know, check towncrier docs]</em></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">src/</span></code> <em>[source; see below]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tasks/</span></code> <em>[invoke is a PyPI library which uses files in this directory to define automation commands that are used in pip’s development processes -- not discussing further right now. For instance, automating the release.]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/</span></code> -- contains tests you can run. There are instructions in <a class="reference internal" href="../getting-started.html"><span class="doc">Getting Started</span></a>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conftest.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code> <em>[test data for running tests -- pesudo package index in it!  Lots of small packages that are invalid or are valid. Test fixtures.  Used by functional tests]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functional/</span></code> <em>[functional tests of pip’s CLI -- end-to-end, invoke pip in subprocess &amp; check results of execution against desired result. This also is what makes test suite slow]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib/</span></code> <em>[helpers for tests]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit/</span></code> <em>[unit tests -- fast and small and nice!]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">yaml/</span></code> <em>[resolver tests! They’re written in YAML. This folder just contains .yaml files -- actual code for reading/running them is in lib/yaml.py . This is fine!]</em></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tools</span></code> <em>[misc development workflow tools, like requirements files &amp; Travis CI files &amp; helpers for tox]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.azure-pipelines</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.github</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.tox</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="src-directory">
+<h2>src directory<a class="headerlink" href="#src-directory" title="Permalink to this headline">¶</a></h2>
+<p>In the root directory, the <code class="docutils literal notranslate"><span class="pre">src/</span></code> directory contains pip’s core
+source code. Within <code class="docutils literal notranslate"><span class="pre">src/pip/</span></code>, <code class="docutils literal notranslate"><span class="pre">_internal/</span></code> has the pip code
+that’s written by pip maintainers, and <code class="docutils literal notranslate"><span class="pre">_vendor/</span></code> is pip’s
+dependencies (code from other packages).</p>
+<p>Within <code class="docutils literal notranslate"><span class="pre">src/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip.egg-info/</span></code> <em>[ignore the contents for now]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip/</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__main__.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__pycache__/</span></code> <em>[not discussing contents right now]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_internal/</span></code> <em>[where all the pip code lives that’s written by pip maintainers -- underscore means private. pip is not a library -- it’s a command line tool! A very important distinction! People who want to install stuff with pip should not use the internals -- they should use the CLI. There’s a note on this in the docs.]</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_env.py</span></code> [not discussing now]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache.py</span></code> <em>[has all the info for how to handle caching within pip -- cache-handling stuff. Uses cachecontrol from PyPI, vendored into pip]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cli/</span></code> <em>[subpackage containing helpers &amp; additional code for managing the command line interface. Uses argparse from stdlib]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commands/</span></code> <em>[literally - each file is the name of the command on the pip CLI. Each has a class that defines what’s needed to set it up, what happens]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">configuration.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">download.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exceptions.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">locations.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">models/</span></code> <em>[in-process refactoring! Goal: improve how pip internally models representations it has for data -- data representation. General overall cleanup. Data reps are spread throughout codebase….link is defined in a class in 1 file, and then another file imports Link from that file. Sometimes cyclic dependency?!?! To prevent future situations like this, etc., Pradyun started moving these into a models directory.]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">operations/</span></code> -- a bit of a weird directory….. <code class="docutils literal notranslate"><span class="pre">Freeze.py</span></code> used to be in there. Freeze is an operation -- there was an operations.freeze. Then “prepare” got added (the operation of preparing a pkg). Then “check” got added for checking the state of an env.] [what’s a command vs an operation? Command is on CLI; an operation would be an internal bit of code that actually does some subset of the operation the command says. <code class="docutils literal notranslate"><span class="pre">install</span></code> command uses bits of <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">prepare</span></code>, for instance. In the long run, Pradyun’s goal: <code class="docutils literal notranslate"><span class="pre">prepare.py</span></code> goes away (gets refactored into other files) such that <code class="docutils literal notranslate"><span class="pre">operations</span></code> is just <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">freeze</span></code>….. … Pradyun plans to refactor this. [how does this compare to <code class="docutils literal notranslate"><span class="pre">utils</span></code>?]</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">install/</span></code> -- for modules related to installing projects of various kinds</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">wheel.py</span></code> is a file that manages installation of a wheel file. This handles unpacking wheels -- “unpack and spread”. There is a package on PyPI called <code class="docutils literal notranslate"><span class="pre">wheel</span></code> that builds wheels -- do not confuse it with this.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pep425tags.py</span></code> -- getting refactored into packaging.tags (a library on PyPI) which is external to pip (but vendored by pip). <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0425"><strong>PEP 425</strong></a> tags: turns out lots of people want this! Compatibility tags for built distributions -&gt; e.g., platform, Python version, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyproject.py</span></code> -- <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is a new standard (<span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0518"><strong>PEP 518</strong></a> and <span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a>). This file reads pyproject.toml and passes that info elsewhere. The rest of the processing happens in a different file. All the handling for 517 and 518 is in a different file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">req/</span></code> <em>[</em><strong>A DIRECTORY THAT NEEDS REFACTORING. A LOT</strong><em>…… Remember Step 3? Dependency resolution etc.? This is that step! Each file represents … have the entire flow of installing &amp; uninstalling, getting info about packages…. Some files here are more than 1,000 lines long! (used to be longer?!) Refactor will deeply improve developer experience.]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolve.py</span></code> -- This is where the current dependency resolution algorithm sits. Pradyun is <a class="reference external" href="https://github.com/pypa/pip/issues/988">improving the pip dependency resolver</a>. Pradyun will get rid of this file and replace it with a directory called “resolution”. (this work is in git master…. There is further work that is going to be in a branch soon)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utils/</span></code> <em>[everything that is not “operationally” pip ….. Misc functions and files get dumped. There’s some organization here. There’s a models.py here which needs refactoring. Deprecation.py is useful, as are other things, but some things do not belong here. There ought to be some GitHub issues for refactoring some things here. Maybe a few issues with checkbox lists.]</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcs/</span></code> <em>[stands for Version Control System. Where pip handles all version control stuff -- one of the ``pip install`` arguments you can use is a version control link. Are any of these commands vendored? No, via subprocesses. For performance, it makes sense (we think) to do this instead of pygitlib2 or similar -- and has to be pure Python, can’t include C libraries, because you can’t include compiled C stuff, because you might not have it for the platform you are running on.]</em></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_vendor/</span></code> <em>[code from other packages -- pip’s own dependencies…. Has them in its own source tree, because pip cannot depend on pip being installed on the machine already!]</em></p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture of pip’s internals</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Broad functionality overview</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration-files.html">Configuration File Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrade-options.html">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Broad functionality overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="configuration-files.html"
+                        title="next chapter">Configuration File Handling</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="configuration-files.html" title="Configuration File Handling"
+             >next</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Broad functionality overview"
+             >previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

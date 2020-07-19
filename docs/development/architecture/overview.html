@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Broad functionality overview &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="next" title="Repository anatomy &amp; directory structure" href="anatomy.html" />
+    <link rel="prev" title="Architecture of pip’s internals" href="index.html" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/py.png" />
+    
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="anatomy.html" title="Repository anatomy &amp; directory structure"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Architecture of pip’s internals"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If you’re
+interested in helping out, please let us know in the <a class="reference external" href="https://github.com/pypa/pip/issues/6831">tracking issue</a>.</p>
+</div>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#broad-functionality-overview" id="id2">Broad functionality overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#broad-overview-of-flow" id="id3">Broad overview of flow</a></p>
+<ul>
+<li><p><a class="reference internal" href="#download-process" id="id4">Download process</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pypi" id="id5">PyPI</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="broad-functionality-overview">
+<h1><a class="toc-backref" href="#id2">Broad functionality overview</a><a class="headerlink" href="#broad-functionality-overview" title="Permalink to this headline">¶</a></h1>
+<p>pip is a package installer.</p>
+<p>pip does a lot more than installation; it also has a cache, and it has
+configuration, and it has a CLI, which has its own quirks. But mainly:</p>
+<p>Things pip does:</p>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">Manages the building of packages (offloads package building to a
+backend) when that’s necessary (a source distribution package --
+this is not necessary if the package is a wheel).</div>
+</div>
+<ol class="arabic">
+<li><div class="line-block">
+<div class="line">By default, pip delegates package-building to setuptools, for
+backwards compatibility reasons. But thing with setuptools:
+has a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file that it invokes to …… get info?</div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Decides where to install stuff. Once the package is built, resulting
+artifact is then installed into system in appropriate place. <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a>
+defines interface between build backend &amp; installer.</p></li>
+</ol>
+<div class="section" id="broad-overview-of-flow">
+<h2><a class="toc-backref" href="#id3">Broad overview of flow</a><a class="headerlink" href="#broad-overview-of-flow" title="Permalink to this headline">¶</a></h2>
+<p>In sequence, what does pip do?:</p>
+<ol class="arabic simple">
+<li><p>Get user input (user-supplied string saying what package they want)</p></li>
+<li><p>Figure out what that means: exactly what the user requested --
+translate to a thing pip can operate on (user input to requirements)</p></li>
+<li><p>CORE OF THE WHOLE PROCESS, MAYBE? Once you have a set of reqs from
+Step 2, you have to expand those into a concrete “things to install”
+-- Figure out what other requirements it has to install based on
+user-given requirements, and where to get them from.</p>
+<ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>this step is convoluted - also exploratory, involves dependency</dt><dd><p>resolution -- we need to get to the index, see what versions
+are available</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Sometimes you need to build the package itself in order to get</dt><dd><p>dependency information, which means fetching the package from
+package index, which means knowing whether it exists. For a
+single package,</p>
+</dd>
+</dl>
+</li>
+</ol>
+</li>
+<li><p>Install the actual items to be installed.</p></li>
+</ol>
+<p>Why? pip installs from places other than PyPI! But also, we’ve never had
+guarantees of PyPI’s JSON API before now, so no one has been getting
+metadata from PyPI separate from downloading the package itself.</p>
+<p>In terms of flow of the install process:</p>
+<ol class="arabic simple">
+<li><p>For 1 package: Get abstract requirement(s) for that package, and
+try and see what that means (this abstract requirement can take
+various forms). Define abstract dependencies.</p></li>
+<li><p>Once we have a set of “this package, get it from here, this is that
+version of that package”,</p></li>
+<li><p>Modify the environment to install those things (which means: place
+the files in the right place). For example: if you already have
+version 6.0 of a requirement and you are installing 7.2, uninstall
+6.0 and install 7.2.</p></li>
+</ol>
+<div class="section" id="download-process">
+<h3><a class="toc-backref" href="#id4">Download process</a><a class="headerlink" href="#download-process" title="Permalink to this headline">¶</a></h3>
+<p>What happens in an install? Well, a subset of <code class="docutils literal notranslate"><span class="pre">install</span></code>, a process
+pip usually does during a <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>, is <code class="docutils literal notranslate"><span class="pre">download</span></code> (also
+available to the user as the <a class="reference internal" href="../../reference/pip_download.html#pip-download"><span class="std std-ref">pip download</span></a> command). And we
+download and INSPECT packages to get manifests. For any given package
+name, we need to know what files are available and what their
+filenames are.</p>
+<p>pip can download from a Python package repository, where packages are
+stored in a structured format so an installer like pip can find them.</p>
+<p><span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0503"><strong>PEP 503</strong></a> defines the API we use to talk to a Python package repository.</p>
+<div class="section" id="pypi">
+<h4><a class="toc-backref" href="#id5">PyPI</a><a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h4>
+<p>What happens if we run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">download</span> <span class="pre">somepackage</span></code> with no other
+arguments?  By default we look at <a class="reference external" href="https://pypi.org/">PyPI</a>, which is where pip knows
+where to look to get more info for what the package index knows about
+<code class="docutils literal notranslate"><span class="pre">somepackage</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> then knows: what files are available, and what their filenames
+are.</p>
+<p>IN OTHER WORDS</p>
+<p>While all dependencies have not been resolved, do the following:</p>
+<ol class="arabic simple">
+<li><p>Following the API defined in <span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0503"><strong>PEP 503</strong></a>, fetch the index page from
+<a class="reference external" href="http://pypi.org/simple/%7Bpackage_name">http://{pypi_index}/simple/{package_name</a>}</p></li>
+<li><p>Parse all of the file links from the page.</p></li>
+<li><p>Select a single file to download from the list of links.</p></li>
+<li><p>Extract the metadata from the downloaded package.</p></li>
+<li><p>Update the dependency tree based on the metadata.</p></li>
+</ol>
+<p>The package index gives pip a list of files for that package (via the existing PyPI API). The files have the version and some other info that helps pip decide whether that’s something pip ought to download.</p>
+<p>pip chooses from the list a single file to download.</p>
+<p>It may go back and choose another file to download</p>
+<p>When pip looks at the package index, the place where it looks has
+basically a link. The link’s text is the name of the file</p>
+<p>This is the <a class="reference external" href="https://warehouse.readthedocs.io/api-reference/legacy/#simple-project-api">PyPI Simple API</a> (PyPI has several APIs, some are being
+deprecated). pip looks at Simple API, documented initially at <span class="target" id="index-3"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0503"><strong>PEP 503</strong></a> --
+packaging.python.org has PyPA specifications with more details for
+Simple Repository API</p>
+<p>For this package name -- this is the list of files available</p>
+<p>Looks there for:</p>
+<ul class="simple">
+<li><p>The list of filenames</p></li>
+<li><p>Other info</p></li>
+</ul>
+<p>Once it has those, selects one file, downloads it</p>
+<p>(Question: If I want to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">flask</span></code>, I think the whole list of filenames
+cannot….should not be …. ? I want only the Flask …. Why am I getting the
+whole list?</p>
+<p>Answer: It’s not every file, just files of Flask. No API for getting alllllll
+files on PyPI. It’s for getting all files of Flask.)</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture of pip’s internals</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Broad functionality overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anatomy.html">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration-files.html">Configuration File Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrade-options.html">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Architecture of pip’s internals</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="anatomy.html"
+                        title="next chapter">Repository anatomy &amp; directory structure</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="anatomy.html" title="Repository anatomy &amp; directory structure"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Architecture of pip’s internals"
+             >previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

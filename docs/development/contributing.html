@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Contributing &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Continuous Integration" href="ci.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ci.html" title="Continuous Integration"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pip-s-internals">
+<h2>Pip’s internals<a class="headerlink" href="#pip-s-internals" title="Permalink to this headline">¶</a></h2>
+<p>We have an in-progress guide to the
+<a class="reference internal" href="architecture/index.html#architecture-pip-internals"><span class="std std-ref">Architecture of pip’s internals</span></a>. It might be helpful as you dive in.</p>
+</div>
+<div class="section" id="submitting-pull-requests">
+<h2>Submitting Pull Requests<a class="headerlink" href="#submitting-pull-requests" title="Permalink to this headline">¶</a></h2>
+<p>Submit pull requests against the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, providing a good
+description of what you’re doing and why. You must have legal permission to
+distribute any code you contribute to pip and it must be available under the
+MIT License.</p>
+<p>Provide tests that cover your changes and run the tests locally first. pip
+<a class="reference internal" href="../installing.html#compatibility-requirements"><span class="std std-ref">supports</span></a> multiple Python versions and
+operating systems. Any pull request must consider and work on all these
+platforms.</p>
+<p>Pull requests should be small to facilitate easier review. Keep them
+self-contained, and limited in scope. <a class="reference external" href="https://www.kessler.de/prd/smartbear/BestPracticesForPeerCodeReview.pdf">Studies have shown</a> that review quality
+falls off as patch size grows. Sometimes this will result in many small PRs to
+land a single large feature. In particular, pull requests must not be treated
+as “feature branches”, with ongoing development work happening within the PR.
+Instead, the feature should be broken up into smaller, independent parts which
+can be reviewed and merged individually.</p>
+<p>Additionally, avoid including “cosmetic” changes to code that
+is unrelated to your change, as these make reviewing the PR more difficult.
+Examples include re-flowing text in comments or documentation, or adding or
+removing blank lines or whitespace within lines. Such changes can be made
+separately, as a “formatting cleanup” PR, if needed.</p>
+</div>
+<div class="section" id="automated-testing">
+<h2>Automated Testing<a class="headerlink" href="#automated-testing" title="Permalink to this headline">¶</a></h2>
+<p>All pull requests and merges to ‘master’ branch are tested using <a class="reference external" href="https://travis-ci.org/">Travis CI</a>,
+<a class="reference external" href="https://azure.microsoft.com/en-in/services/devops/pipelines/">Azure Pipelines</a> and <a class="reference external" href="https://github.com/features/actions">GitHub Actions</a> based on our <a class="reference external" href="https://github.com/pypa/pip/blob/master/.travis.yml">.travis.yml</a>,
+<a class="reference external" href="https://github.com/pypa/pip/blob/master/.azure-pipelines">.azure-pipelines</a> and <a class="reference external" href="https://github.com/pypa/pip/blob/master/.github/workflows">.github/workflows</a> files. More details about pip’s
+Continuous Integration can be found in the <a class="reference external" href="https://pip.pypa.io/en/latest/development/ci/">CI Documentation</a></p>
+<p>You can find the status and results to the CI runs for your PR on GitHub’s web
+UI for the pull request. You can also find links to the CI services’ pages for
+the specific builds in the form of “Details” links, in case the CI run fails
+and you wish to view the output.</p>
+<p>To trigger CI to run again for a pull request, you can close and open the pull
+request or submit another change to the pull request. If needed, project
+maintainers can manually trigger a restart of a job/build.</p>
+<p>To understand the broader software architecture around dependency
+resolution in pip, and how we automatically test this functionality,
+see <a class="reference external" href="https://pradyunsg.me/blog/2020/03/27/pip-resolver-testing/">Testing the next-gen pip dependency resolver</a>.</p>
+</div>
+<div class="section" id="news-entries">
+<h2>NEWS Entries<a class="headerlink" href="#news-entries" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">NEWS.rst</span></code> file is managed using <a class="reference external" href="https://pypi.org/project/towncrier/">towncrier</a> and all non trivial changes
+must be accompanied by a news entry.</p>
+<p>To add an entry to the news file, first you need to have created an issue
+describing the change you want to make. A Pull Request itself <em>may</em> function as
+such, but it is preferred to have a dedicated issue (for example, in case the
+PR ends up rejected due to code quality reasons).</p>
+<p>Once you have an issue or pull request, you take the number and you create a
+file inside of the <code class="docutils literal notranslate"><span class="pre">news/</span></code> directory named after that issue number with an
+extension of <code class="docutils literal notranslate"><span class="pre">removal</span></code>, <code class="docutils literal notranslate"><span class="pre">feature</span></code>, <code class="docutils literal notranslate"><span class="pre">bugfix</span></code>, or <code class="docutils literal notranslate"><span class="pre">doc</span></code>. Thus if your
+issue or PR number is <code class="docutils literal notranslate"><span class="pre">1234</span></code> and this change is fixing a bug, then you would
+create a file <code class="docutils literal notranslate"><span class="pre">news/1234.bugfix</span></code>. PRs can span multiple categories by creating
+multiple files (for instance, if you added a feature and deprecated/removed the
+old feature at the same time, you would create <code class="docutils literal notranslate"><span class="pre">news/NNNN.feature</span></code> and
+<code class="docutils literal notranslate"><span class="pre">news/NNNN.removal</span></code>). Likewise if a PR touches multiple issues/PRs you may
+create a file for each of them with the exact same contents and Towncrier will
+deduplicate them.</p>
+<div class="section" id="contents-of-a-news-entry">
+<h3>Contents of a NEWS entry<a class="headerlink" href="#contents-of-a-news-entry" title="Permalink to this headline">¶</a></h3>
+<p>The contents of this file are reStructuredText formatted text that
+will be used as the content of the news file entry. You do not need to
+reference the issue or PR numbers in the entry, since <code class="docutils literal notranslate"><span class="pre">towncrier</span></code>
+will automatically add a reference to all of the affected issues when
+rendering the NEWS file.</p>
+<p>In order to maintain a consistent style in the <code class="docutils literal notranslate"><span class="pre">NEWS.rst</span></code> file, it is
+preferred to keep the news entry to the point, in sentence case, shorter than
+80 characters and in an imperative tone -- an entry should complete the sentence
+“This change will …”. In rare cases, where one line is not enough, use a
+summary line in an imperative tone followed by a blank line separating it
+from a description of the feature/change in one or more paragraphs, each wrapped
+at 80 characters. Remember that a news entry is meant for end users and should
+only contain details relevant to an end user.</p>
+</div>
+<div class="section" id="choosing-the-type-of-news-entry">
+<span id="choosing-news-entry-type"></span><h3>Choosing the type of NEWS entry<a class="headerlink" href="#choosing-the-type-of-news-entry" title="Permalink to this headline">¶</a></h3>
+<p>A trivial change is anything that does not warrant an entry in the news file.
+Some examples are: Code refactors that don’t change anything as far as the
+public is concerned, typo fixes, white space modification, etc. To mark a PR
+as trivial a contributor simply needs to add a randomly named, empty file to
+the <code class="docutils literal notranslate"><span class="pre">news/</span></code> directory with the extension of <code class="docutils literal notranslate"><span class="pre">.trivial</span></code>. If you are on a
+POSIX like operating system, one can be added by running
+<code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">news/$(uuidgen).trivial</span></code>. On Windows, the same result can be achieved
+in Powershell using <code class="docutils literal notranslate"><span class="pre">New-Item</span> <span class="pre">&quot;news/$([guid]::NewGuid()).trivial&quot;</span></code>. Core
+committers may also add a “trivial” label to the PR which will accomplish the
+same thing.</p>
+<p>Upgrading, removing, or adding a new vendored library gets a special mention
+using a <code class="docutils literal notranslate"><span class="pre">news/&lt;library&gt;.vendor</span></code> file. This is in addition to any features,
+bugfixes, or other kinds of news that pulling in this library may have. This
+uses the library name as the key so that updating the same library twice doesn’t
+produce two news file entries.</p>
+<p>Changes to the processes, policies, or other non code related changed that are
+otherwise notable can be done using a <code class="docutils literal notranslate"><span class="pre">news/&lt;name&gt;.process</span></code> file. This is not
+typically used, but can be used for things like changing version schemes,
+updating deprecation policy, etc.</p>
+</div>
+</div>
+<div class="section" id="updating-your-branch">
+<h2>Updating your branch<a class="headerlink" href="#updating-your-branch" title="Permalink to this headline">¶</a></h2>
+<p>As you work, you might need to update your local master branch up-to-date with
+the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch in the main pip repository, which moves forward as the
+maintainers merge pull requests. Most people working on the project use the
+following workflow.</p>
+<p>This assumes that you have Git configured so that when you run the following
+command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git remote -v</span>
+</pre></div>
+</div>
+<p>Your output looks like this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">origin  https://github.com/USERNAME/pip.git (fetch)</span>
+<span class="go">origin  https://github.com/USERNAME/pip.git (push)</span>
+<span class="go">upstream  https://github.com/pypa/pip.git (fetch)</span>
+<span class="go">upstream  https://github.com/pypa/pip.git (push)</span>
+</pre></div>
+</div>
+<p>In the example above, <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code> is your username on GitHub.</p>
+<p>First, fetch the latest changes from the main pip repository, <code class="docutils literal notranslate"><span class="pre">upstream</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git fetch upstream</span>
+</pre></div>
+</div>
+<p>Then, check out your local <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, and rebase the changes on top of
+it:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout master</span>
+<span class="go">git rebase upstream/master</span>
+</pre></div>
+</div>
+<p>At this point, you might have to <a class="reference external" href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line">resolve merge conflicts</a>. Once this is done,
+push the updates you have just made to your local <code class="docutils literal notranslate"><span class="pre">master</span></code> branch to your
+<code class="docutils literal notranslate"><span class="pre">origin</span></code> repository on GitHub:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout master</span>
+<span class="go">git push origin master</span>
+</pre></div>
+</div>
+<p>Now your local <code class="docutils literal notranslate"><span class="pre">master</span></code> branch and the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch in your <code class="docutils literal notranslate"><span class="pre">origin</span></code>
+repo have been updated with the most recent changes from the main pip
+repository.</p>
+<p>To keep your branches updated, the process is similar:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git checkout awesome-feature</span>
+<span class="go">git fetch upstream</span>
+<span class="go">git rebase upstream/master</span>
+</pre></div>
+</div>
+<p>Now your branch has been updated with the latest changes from the
+<code class="docutils literal notranslate"><span class="pre">master</span></code> branch on the upstream pip repository.</p>
+<p>It’s good practice to back up your branches by pushing them to your
+<code class="docutils literal notranslate"><span class="pre">origin</span></code> on GitHub as you are working on them. To push a branch,
+run this command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git push origin awesome-feature</span>
+</pre></div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">&lt;awesome-feature&gt;</span></code> is the name of your branch. This
+will push the branch you are working on to GitHub, but will not
+create a PR.</p>
+<p>Once you have pushed your branch to your <code class="docutils literal notranslate"><span class="pre">origin</span></code>, if you need to
+update it again, you will have to force push your changes by running the
+following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git push -f origin awesome-feature</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-f</span></code> (or <code class="docutils literal notranslate"><span class="pre">--force</span></code>) flag after <code class="docutils literal notranslate"><span class="pre">push</span></code> forces updates from your local
+branch to update your <code class="docutils literal notranslate"><span class="pre">origin</span></code> branch. If you have a PR open on your
+branch, force pushing will update your PR. (This is a useful command
+when someone requests changes on a PR.)</p>
+<p>If you get an error message like this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">! [rejected]        awesome-feature -&gt; awesome-feature (non-fast-forward)</span>
+<span class="go">error: failed to push some refs to &#39;https://github.com/USERNAME/pip.git&#39;</span>
+<span class="go">hint: Updates were rejected because the tip of your current branch is behind</span>
+<span class="go">hint: its remote counterpart. Integrate the remote changes (e.g.</span>
+<span class="go">hint: &#39;git pull ...&#39;) before pushing again.</span>
+<span class="go">hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</span>
+</pre></div>
+</div>
+<p>Try force-pushing your branch with <code class="docutils literal notranslate"><span class="pre">push</span> <span class="pre">-f</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">master</span></code> branch in the main pip repository gets updated frequently, so
+you might have to update your branch at least once while you are working on it.</p>
+<p>Thank you for your contribution!</p>
+</div>
+<div class="section" id="becoming-a-maintainer">
+<h2>Becoming a maintainer<a class="headerlink" href="#becoming-a-maintainer" title="Permalink to this headline">¶</a></h2>
+<p>If you want to become an official maintainer, start by helping out.</p>
+<p>As a first step, we welcome you to triage issues on pip’s issue
+tracker. pip maintainers provide triage abilities to contributors once
+they have been around for some time (probably at least 2-3 months) and
+contributed positively to the project. This is optional and highly
+recommended for becoming a pip maintainer.</p>
+<p>Later, when you think you’re ready (probably at least 5 months after
+starting to triage), get in touch with one of the maintainers and they
+will initiate a vote among the existing maintainers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Upon becoming a maintainer, a person should be given access to various
+pip-related tooling across multiple platforms. These are noted here for
+future reference by the maintainers:</p>
+<ul class="simple">
+<li><p>GitHub Push Access</p></li>
+<li><p>PyPI Publishing Access</p></li>
+<li><p>CI Administration capabilities</p></li>
+<li><p>ReadTheDocs Administration capabilities</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pip-s-internals">Pip’s internals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-pull-requests">Submitting Pull Requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automated-testing">Automated Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#news-entries">NEWS Entries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-your-branch">Updating your branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#becoming-a-maintainer">Becoming a maintainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="getting-started.html"
+                        title="previous chapter">Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ci.html"
+                        title="next chapter">Continuous Integration</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ci.html" title="Continuous Integration"
+             >next</a></li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting Started"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

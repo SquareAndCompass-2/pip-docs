@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>pip &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="pip install" href="pip_install.html" />
+    <link rel="prev" title="Reference Guide" href="index.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_install.html" title="pip install"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Reference Guide"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pip">
+<h1><a class="toc-backref" href="#id4">pip</a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pip" id="id4">pip</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usage" id="id5">Usage</a></p></li>
+<li><p><a class="reference internal" href="#description" id="id6">Description</a></p>
+<ul>
+<li><p><a class="reference internal" href="#logging" id="id7">Logging</a></p>
+<ul>
+<li><p><a class="reference internal" href="#console-logging" id="id8">Console logging</a></p></li>
+<li><p><a class="reference internal" href="#file-logging" id="id9">File logging</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#exists-action-option" id="id10">--exists-action option</a></p></li>
+<li><p><a class="reference internal" href="#build-system-interface" id="id11">Build System Interface</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setuptools-injection" id="id12">Setuptools Injection</a></p></li>
+<li><p><a class="reference internal" href="#build-system-output" id="id13">Build System Output</a></p></li>
+<li><p><a class="reference internal" href="#pep-517-and-518-support" id="id14">PEP 517 and 518 Support</a></p></li>
+<li><p><a class="reference internal" href="#future-developments" id="id15">Future Developments</a></p></li>
+<li><p><a class="reference internal" href="#build-options" id="id16">Build Options</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#general-options" id="id17">General Options</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id5">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2><a class="toc-backref" href="#id6">Description</a><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logging">
+<span id="id1"></span><h3><a class="toc-backref" href="#id7">Logging</a><a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="console-logging">
+<h4><a class="toc-backref" href="#id8">Console logging</a><a class="headerlink" href="#console-logging" title="Permalink to this headline">¶</a></h4>
+<p>pip offers <a class="reference internal" href="#verbose"><span class="std std-ref">-v, --verbose</span></a> and <a class="reference internal" href="#quiet"><span class="std std-ref">-q, --quiet</span></a>
+to control the console log level. By default, some messages (error and warnings)
+are colored in the terminal. If you want to suppress the colored output use
+<a class="reference internal" href="#no-color"><span class="std std-ref">--no-color</span></a>.</p>
+</div>
+<div class="section" id="file-logging">
+<span id="filelogging"></span><h4><a class="toc-backref" href="#id9">File logging</a><a class="headerlink" href="#file-logging" title="Permalink to this headline">¶</a></h4>
+<p>pip offers the <a class="reference internal" href="#log"><span class="std std-ref">--log</span></a> option for specifying a file where a maximum
+verbosity log will be kept.  This option is empty by default. This log appends
+to previous logging.</p>
+<p>Like all pip options, <code class="docutils literal notranslate"><span class="pre">--log</span></code> can also be set as an environment variable, or
+placed into the pip config file.  See the <a class="reference internal" href="../user_guide.html#configuration"><span class="std std-ref">Configuration</span></a> section.</p>
+</div>
+</div>
+<div class="section" id="exists-action-option">
+<span id="exists-action"></span><h3><a class="toc-backref" href="#id10">--exists-action option</a><a class="headerlink" href="#exists-action-option" title="Permalink to this headline">¶</a></h3>
+<p>This option specifies default behavior when path already exists.
+Possible cases: downloading files or checking out repositories for installation,
+creating archives. If <code class="docutils literal notranslate"><span class="pre">--exists-action</span></code> is not defined, pip will prompt
+when decision is needed.</p>
+<dl class="simple">
+<dt><em>(s)witch</em></dt><dd><p>Only relevant to VCS checkout. Attempt to switch the checkout
+to the appropriate URL and/or revision.</p>
+</dd>
+<dt><em>(i)gnore</em></dt><dd><p>Abort current operation (e.g. don’t copy file, don’t create archive,
+don’t modify a checkout).</p>
+</dd>
+<dt><em>(w)ipe</em></dt><dd><p>Delete the file or VCS checkout before trying to create, download, or checkout a new one.</p>
+</dd>
+<dt><em>(b)ackup</em></dt><dd><p>Rename the file or checkout to <code class="docutils literal notranslate"><span class="pre">{name}{'.bak'</span> <span class="pre">*</span> <span class="pre">n}</span></code>, where n is some number
+of <code class="docutils literal notranslate"><span class="pre">.bak</span></code> extensions, such that the file didn’t exist at some point.
+So the most recent backup will be the one with the largest number after <code class="docutils literal notranslate"><span class="pre">.bak</span></code>.</p>
+</dd>
+<dt><em>(a)abort</em></dt><dd><p>Abort pip and return non-zero exit status.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="build-system-interface">
+<span id="build-interface"></span><h3><a class="toc-backref" href="#id11">Build System Interface</a><a class="headerlink" href="#build-system-interface" title="Permalink to this headline">¶</a></h3>
+<p>pip builds packages by invoking the build system. By default, builds will use
+<code class="docutils literal notranslate"><span class="pre">setuptools</span></code>, but if a project specifies a different build system using a
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, as per <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a>, pip will use that instead.  As well
+as package building, the build system is also invoked to install packages
+direct from source.  This is handled by invoking the build system to build a
+wheel, and then installing from that wheel.  The built wheel is cached locally
+by pip to avoid repeated identical builds.</p>
+<p>The current interface to the build system is via the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> command line
+script - all build actions are defined in terms of the specific <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>
+command line that will be run to invoke the required action.</p>
+<div class="section" id="setuptools-injection">
+<h4><a class="toc-backref" href="#id12">Setuptools Injection</a><a class="headerlink" href="#setuptools-injection" title="Permalink to this headline">¶</a></h4>
+<p>When <span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> is not used, the supported build system is <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>.
+However, not all packages use <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> in their build scripts. To support
+projects that use “pure <code class="docutils literal notranslate"><span class="pre">distutils</span></code>”, pip injects <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> into
+<code class="docutils literal notranslate"><span class="pre">sys.modules</span></code> before invoking <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>. The injection should be
+transparent to <code class="docutils literal notranslate"><span class="pre">distutils</span></code>-based projects, but 3rd party build tools wishing
+to provide a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> emulating the commands pip requires may need to be
+aware that it takes place.</p>
+<p>Projects using <span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> <em>must</em> explicitly use setuptools - pip does not do
+the above injection process in this case.</p>
+</div>
+<div class="section" id="build-system-output">
+<h4><a class="toc-backref" href="#id13">Build System Output</a><a class="headerlink" href="#build-system-output" title="Permalink to this headline">¶</a></h4>
+<p>Any output produced by the build system will be read by pip (for display to the
+user if requested). In order to correctly read the build system output, pip
+requires that the output is written in a well-defined encoding, specifically
+the encoding the user has configured for text output (which can be obtained in
+Python using <code class="docutils literal notranslate"><span class="pre">locale.getpreferredencoding</span></code>). If the configured encoding is
+ASCII, pip assumes UTF-8 (to account for the behaviour of some Unix systems).</p>
+<p>Build systems should ensure that any tools they invoke (compilers, etc) produce
+output in the correct encoding. In practice - and in particular on Windows,
+where tools are inconsistent in their use of the “OEM” and “ANSI” codepages -
+this may not always be possible. pip will therefore attempt to recover cleanly
+if presented with incorrectly encoded build tool output, by translating
+unexpected byte sequences to Python-style hexadecimal escape sequences
+(<code class="docutils literal notranslate"><span class="pre">&quot;\x80\xff&quot;</span></code>, etc). However, it is still possible for output to be displayed
+using an incorrect encoding (mojibake).</p>
+<p>Under <span class="target" id="index-3"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a>, handling of build tool output is the backend’s responsibility,
+and pip simply displays the output produced by the backend. (Backends, however,
+will likely still have to address the issues described above).</p>
+</div>
+<div class="section" id="pep-517-and-518-support">
+<h4><a class="toc-backref" href="#id14">PEP 517 and 518 Support</a><a class="headerlink" href="#pep-517-and-518-support" title="Permalink to this headline">¶</a></h4>
+<p>As of version 10.0, pip supports projects declaring dependencies that are
+required at install time using a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, in the form described
+in <span class="target" id="index-4"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0518"><strong>PEP 518</strong></a>. When building a project, pip will install the required
+dependencies locally, and make them available to the build process.
+Furthermore, from version 19.0 onwards, pip supports projects specifying the
+build backend they use in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, in the form described in
+<span class="target" id="index-5"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a>.</p>
+<p>When making build requirements available, pip does so in an <em>isolated
+environment</em>. That is, pip does not install those requirements into the user’s
+<code class="docutils literal notranslate"><span class="pre">site-packages</span></code>, but rather installs them in a temporary directory which it
+adds to the user’s <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> for the duration of the build. This ensures
+that build requirements are handled independently of the user’s runtime
+environment. For example, a project that needs a recent version of setuptools
+to build can still be installed, even if the user has an older version
+installed (and without silently replacing that version).</p>
+<p>In certain cases, projects (or redistributors) may have workflows that
+explicitly manage the build environment. For such workflows, build isolation
+can be problematic. If this is the case, pip provides a
+<code class="docutils literal notranslate"><span class="pre">--no-build-isolation</span></code> flag to disable build isolation. Users supplying this
+flag are responsible for ensuring the build environment is managed
+appropriately (including ensuring that all required build dependencies are
+installed).</p>
+<p>By default, pip will continue to use the legacy (direct <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> execution
+based) build processing for projects that do not have a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.
+Projects with a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file will use a <span class="target" id="index-6"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> backend. Projects
+with a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, but which don’t have a <code class="docutils literal notranslate"><span class="pre">build-system</span></code> section,
+will be assumed to have the following backend settings:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="o">-</span><span class="n">system</span><span class="p">]</span>
+<span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;setuptools&gt;=40.8.0&quot;</span><span class="p">,</span> <span class="s2">&quot;wheel&quot;</span><span class="p">]</span>
+<span class="n">build</span><span class="o">-</span><span class="n">backend</span> <span class="o">=</span> <span class="s2">&quot;setuptools.build_meta:__legacy__&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> 40.8.0 is the first version of setuptools that offers a
+<span class="target" id="index-7"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> backend that closely mimics directly executing <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
+</div>
+<p>If a project has <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code>, but no <code class="docutils literal notranslate"><span class="pre">build-backend</span></code>, pip will also use
+<code class="docutils literal notranslate"><span class="pre">setuptools.build_meta:__legacy__</span></code>, but will expect the project requirements
+to include <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> and <code class="docutils literal notranslate"><span class="pre">wheel</span></code> (and will report an error if the
+installed version of <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> is not recent enough).</p>
+<p>If a user wants to explicitly request <span class="target" id="index-8"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> handling even though a project
+doesn’t have a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, this can be done using the
+<code class="docutils literal notranslate"><span class="pre">--use-pep517</span></code> command line option. Similarly, to request legacy processing
+even though <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is present, the <code class="docutils literal notranslate"><span class="pre">--no-use-pep517</span></code> option is
+available (although obviously it is an error to choose <code class="docutils literal notranslate"><span class="pre">--no-use-pep517</span></code> if
+the project has no <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, or explicitly requests a build backend). As
+with other command line flags, pip recognises the <code class="docutils literal notranslate"><span class="pre">PIP_USE_PEP517</span></code>
+environment veriable and a <code class="docutils literal notranslate"><span class="pre">use-pep517</span></code> config file option (set to true or
+false) to set this option globally. Note that overriding pip’s choice of
+whether to use <span class="target" id="index-9"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0517"><strong>PEP 517</strong></a> processing in this way does <em>not</em> affect whether pip
+will use an isolated build environment (which is controlled via
+<code class="docutils literal notranslate"><span class="pre">--no-build-isolation</span></code> as noted above).</p>
+<p>Except in the case noted above (projects with no <span class="target" id="index-10"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0518"><strong>PEP 518</strong></a> <code class="docutils literal notranslate"><span class="pre">[build-system]</span></code>
+section in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>), pip will never implicitly install a build
+system. Projects <strong>must</strong> ensure that the correct build system is listed in
+their <code class="docutils literal notranslate"><span class="pre">requires</span></code> list (this applies even if pip assumes that the
+<code class="docutils literal notranslate"><span class="pre">setuptools</span></code> backend is being used, as noted above).</p>
+<p id="pep-518-limitations"><strong>Historical Limitations</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pip&lt;18.0</span></code>: only supports installing build requirements from wheels, and
+does not support the use of environment markers and extras (only version
+specifiers are respected).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip&lt;18.1</span></code>: build dependencies using .pth files are not properly supported;
+as a result namespace packages do not work under Python 3.2 and earlier.</p></li>
+</ul>
+</div>
+<div class="section" id="future-developments">
+<h4><a class="toc-backref" href="#id15">Future Developments</a><a class="headerlink" href="#future-developments" title="Permalink to this headline">¶</a></h4>
+<p><span class="target" id="index-11"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0426"><strong>PEP 426</strong></a> notes that the intention is to add hooks to project metadata in
+version 2.1 of the metadata spec, to explicitly define how to build a project
+from its source. Once this version of the metadata spec is final, pip will
+migrate to using that interface. At that point, the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> interface
+documented here will be retained solely for legacy purposes, until projects
+have migrated.</p>
+<p>Specifically, applications should <em>not</em> expect to rely on there being any form
+of backward compatibility guarantees around the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> interface.</p>
+</div>
+<div class="section" id="build-options">
+<h4><a class="toc-backref" href="#id16">Build Options</a><a class="headerlink" href="#build-options" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">--global-option</span></code> and <code class="docutils literal notranslate"><span class="pre">--build-option</span></code> arguments to the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+and <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">wheel</span></code> inject additional arguments into the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> command
+(<code class="docutils literal notranslate"><span class="pre">--build-option</span></code> is only available in <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">wheel</span></code>).  These arguments are
+included in the command as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">global_options</span><span class="o">&gt;</span> <span class="n">BUILD</span> <span class="n">COMMAND</span> <span class="o">&lt;</span><span class="n">build_options</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The options are passed unmodified, and presently offer direct access to the
+distutils command line. Use of <code class="docutils literal notranslate"><span class="pre">--global-option</span></code> and <code class="docutils literal notranslate"><span class="pre">--build-option</span></code>
+should be considered as build system dependent, and may not be supported in the
+current form if support for alternative build systems is added to pip.</p>
+</div>
+</div>
+</div>
+<div class="section" id="general-options">
+<span id="id2"></span><h2><a class="toc-backref" href="#id17">General Options</a><a class="headerlink" href="#general-options" title="Permalink to this headline">¶</a></h2>
+<p><span class="target" id="help"></span><dl class="option">
+<dt id="cmdoption-h">
+<code class="sig-name descname">-h</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--help</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show help.</p>
+</dd></dl>
+
+<span class="target" id="isolated"></span><dl class="option">
+<dt id="cmdoption-isolated">
+<code class="sig-name descname">--isolated</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-isolated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run pip in an isolated mode, ignoring environment variables and user configuration.</p>
+</dd></dl>
+
+<span class="target" id="verbose"></span><dl class="option">
+<dt id="cmdoption-v">
+<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give more output. Option is additive, and can be used up to 3 times.</p>
+</dd></dl>
+
+<span class="target" id="version"></span><dl class="option">
+<dt id="cmdoption-version">
+<code class="sig-name descname">-V</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show version and exit.</p>
+</dd></dl>
+
+<span class="target" id="quiet"></span><dl class="option">
+<dt id="cmdoption-q">
+<code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give less output. Option is additive, and can be used up to 3 times (corresponding to WARNING, ERROR, and CRITICAL logging levels).</p>
+</dd></dl>
+
+<span class="target" id="log"></span><dl class="option">
+<dt id="cmdoption-log">
+<code class="sig-name descname">--log</code><code class="sig-prename descclassname"> &lt;path&gt;</code><a class="headerlink" href="#cmdoption-log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to a verbose appending log.</p>
+</dd></dl>
+
+<span class="target" id="no-input"></span><dl class="option">
+<dt id="cmdoption-no-input">
+<code class="sig-name descname">--no-input</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable prompting for input.</p>
+</dd></dl>
+
+<span class="target" id="proxy"></span><dl class="option">
+<dt id="cmdoption-proxy">
+<code class="sig-name descname">--proxy</code><code class="sig-prename descclassname"> &lt;proxy&gt;</code><a class="headerlink" href="#cmdoption-proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a proxy in the form [user:passwd&#64;]proxy.server:port.</p>
+</dd></dl>
+
+<span class="target" id="retries"></span><dl class="option">
+<dt id="cmdoption-retries">
+<code class="sig-name descname">--retries</code><code class="sig-prename descclassname"> &lt;retries&gt;</code><a class="headerlink" href="#cmdoption-retries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum number of retries each connection should attempt (default 5 times).</p>
+</dd></dl>
+
+<span class="target" id="timeout"></span><dl class="option">
+<dt id="cmdoption-timeout">
+<code class="sig-name descname">--timeout</code><code class="sig-prename descclassname"> &lt;sec&gt;</code><a class="headerlink" href="#cmdoption-timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the socket timeout (default 15 seconds).</p>
+</dd></dl>
+
+<span class="target" id="id3"></span><dl class="option">
+<dt id="cmdoption-exists-action">
+<code class="sig-name descname">--exists-action</code><code class="sig-prename descclassname"> &lt;action&gt;</code><a class="headerlink" href="#cmdoption-exists-action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.</p>
+</dd></dl>
+
+<span class="target" id="trusted-host"></span><dl class="option">
+<dt id="cmdoption-trusted-host">
+<code class="sig-name descname">--trusted-host</code><code class="sig-prename descclassname"> &lt;hostname&gt;</code><a class="headerlink" href="#cmdoption-trusted-host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.</p>
+</dd></dl>
+
+<span class="target" id="cert"></span><dl class="option">
+<dt id="cmdoption-cert">
+<code class="sig-name descname">--cert</code><code class="sig-prename descclassname"> &lt;path&gt;</code><a class="headerlink" href="#cmdoption-cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to alternate CA bundle.</p>
+</dd></dl>
+
+<span class="target" id="client-cert"></span><dl class="option">
+<dt id="cmdoption-client-cert">
+<code class="sig-name descname">--client-cert</code><code class="sig-prename descclassname"> &lt;path&gt;</code><a class="headerlink" href="#cmdoption-client-cert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.</p>
+</dd></dl>
+
+<span class="target" id="cache-dir"></span><dl class="option">
+<dt id="cmdoption-cache-dir">
+<code class="sig-name descname">--cache-dir</code><code class="sig-prename descclassname"> &lt;dir&gt;</code><a class="headerlink" href="#cmdoption-cache-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the cache data in &lt;dir&gt;.</p>
+</dd></dl>
+
+<span class="target" id="no-cache-dir"></span><dl class="option">
+<dt id="cmdoption-no-cache-dir">
+<code class="sig-name descname">--no-cache-dir</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-cache-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable the cache.</p>
+</dd></dl>
+
+<span class="target" id="disable-pip-version-check"></span><dl class="option">
+<dt id="cmdoption-disable-pip-version-check">
+<code class="sig-name descname">--disable-pip-version-check</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-disable-pip-version-check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don’t periodically check PyPI to determine whether a new version of pip is available for download. Implied with --no-index.</p>
+</dd></dl>
+
+<span class="target" id="no-color"></span><dl class="option">
+<dt id="cmdoption-no-color">
+<code class="sig-name descname">--no-color</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suppress colored output</p>
+</dd></dl>
+
+<span class="target" id="no-python-version-warning"></span><dl class="option">
+<dt id="cmdoption-no-python-version-warning">
+<code class="sig-name descname">--no-python-version-warning</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-no-python-version-warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Silence deprecation warnings for upcoming unsupported Pythons.</p>
+</dd></dl>
+
+<span class="target" id="use-feature"></span><dl class="option">
+<dt id="cmdoption-use-feature">
+<code class="sig-name descname">--use-feature</code><code class="sig-prename descclassname"> &lt;feature&gt;</code><a class="headerlink" href="#cmdoption-use-feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable new functionality, that may be backward incompatible.</p>
+</dd></dl>
+
+<span class="target" id="use-deprecated"></span><dl class="option">
+<dt id="cmdoption-use-deprecated">
+<code class="sig-name descname">--use-deprecated</code><code class="sig-prename descclassname"> &lt;feature&gt;</code><a class="headerlink" href="#cmdoption-use-deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable deprecated functionality, that will be removed in the future.</p>
+</dd></dl>
+
+</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pip</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-options">General Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pip_install.html">pip install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_download.html">pip download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_uninstall.html">pip uninstall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_freeze.html">pip freeze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_list.html">pip list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_show.html">pip show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_search.html">pip search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_cache.html">pip cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_check.html">pip check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_config.html">pip config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_wheel.html">pip wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_hash.html">pip hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip_debug.html">pip debug</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Reference Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pip_install.html"
+                        title="next chapter">pip install</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pip_install.html" title="pip install"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Reference Guide"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Reference Guide</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

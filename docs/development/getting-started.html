@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Development" href="index.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="contributing.html" title="Contributing"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Development"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>We’re pleased that you are interested in working on pip.</p>
+<p>This document is meant to get you setup to work on pip and to act as a guide and
+reference to the development setup. If you face any issues during this
+process, please <a class="reference external" href="https://github.com/pypa/pip/issues/new?title=Trouble+with+pip+development+environment">open an issue</a> about it on the issue tracker.</p>
+<div class="section" id="get-the-source-code">
+<h2>Get the source code<a class="headerlink" href="#get-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>To work on pip, you first need to get the source code of pip. The source code is
+available on <a class="reference external" href="https://github.com/pypa/pip">GitHub</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git clone https://github.com/pypa/pip
+<span class="gp">$</span> <span class="nb">cd</span> pip
+</pre></div>
+</div>
+</div>
+<div class="section" id="development-environment">
+<h2>Development Environment<a class="headerlink" href="#development-environment" title="Permalink to this headline">¶</a></h2>
+<p>pip is a command line application written in Python. For developing pip,
+you should <a class="reference external" href="https://realpython.com/installing-python/">install Python</a> on your computer.</p>
+<p>For developing pip, you need to install <a class="reference external" href="https://pypi.org/project/tox/">tox</a>. Often, you can run
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">tox</span></code> to install and use it.</p>
+</div>
+<div class="section" id="running-pip-from-source-tree">
+<h2>Running pip From Source Tree<a class="headerlink" href="#running-pip-from-source-tree" title="Permalink to this headline">¶</a></h2>
+<p>To run the pip executable from your source tree during development, install pip
+locally using editable installation (inside a virtualenv).
+You can then invoke your local source tree pip normally.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> virtualenv venv <span class="c1"># You can also use &quot;python -m venv venv&quot; from python3.3+</span>
+<span class="gp">$</span> <span class="nb">source</span> venv/bin/activate
+<span class="gp">$</span> python -m pip install -e .
+<span class="gp">$</span> python -m pip --version
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>pip’s tests are written using the <a class="reference external" href="https://pypi.org/project/pytest/">pytest</a> test framework, <a class="reference external" href="https://pypi.org/project/mock/">mock</a>
+and <a class="reference external" href="https://pypi.org/project/pretend/">pretend</a>. <a class="reference external" href="https://pypi.org/project/tox/">tox</a> is used to automate the setup and execution of
+pip’s tests.</p>
+<p>It is preferable to run the tests in parallel for better experience during development,
+since the tests can take a long time to finish when run sequentially.</p>
+<p>To run tests:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> tox -e py36 -- -n auto
+</pre></div>
+</div>
+<p>To run tests without parallelization, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> tox -e py36
+</pre></div>
+</div>
+<p>The example above runs tests against Python 3.6. You can also use other
+versions like <code class="docutils literal notranslate"><span class="pre">py27</span></code> and <code class="docutils literal notranslate"><span class="pre">pypy3</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tox</span></code> has been configured to forward any additional arguments it is given to
+<code class="docutils literal notranslate"><span class="pre">pytest</span></code>. This enables the use of pytest’s <a class="reference external" href="https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests">rich CLI</a>. As an example, you
+can select tests using the various ways that pytest provides:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="c1"># Using file name</span>
+<span class="gp">$</span> tox -e py36 -- tests/functional/test_install.py
+<span class="gp">$</span> <span class="c1"># Using markers</span>
+<span class="gp">$</span> tox -e py36 -- -m unit
+<span class="gp">$</span> <span class="c1"># Using keywords</span>
+<span class="gp">$</span> tox -e py36 -- -k <span class="s2">&quot;install and not wheel&quot;</span>
+</pre></div>
+</div>
+<p>Running pip’s test suite requires supported version control tools (subversion,
+bazaar, git, and mercurial) to be installed. If you are missing one of the VCS
+tools, you can tell pip to skip those tests:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> tox -e py36 -- -k <span class="s2">&quot;not svn&quot;</span>
+<span class="gp">$</span> tox -e py36 -- -k <span class="s2">&quot;not (svn or git)&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-linters">
+<h2>Running Linters<a class="headerlink" href="#running-linters" title="Permalink to this headline">¶</a></h2>
+<p>pip uses <a class="reference external" href="https://pypi.org/project/pre-commit/">pre-commit</a> for managing linting of the codebase.
+<code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> performs various checks on all files in pip and uses tools that
+help follow a consistent code style within the codebase.</p>
+<p>To use linters locally, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> tox -e lint
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Avoid using <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">noqa</span></code> comments to suppress linter warnings - wherever
+possible, warnings should be fixed instead. <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">noqa</span></code> comments are
+reserved for rare cases where the recommended style causes severe
+readability problems.</p>
+</div>
+</div>
+<div class="section" id="building-documentation">
+<h2>Building Documentation<a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h2>
+<p>pip’s documentation is built using <a class="reference external" href="https://pypi.org/project/Sphinx/">Sphinx</a>. The documentation is written
+in reStructuredText.</p>
+<p>To build it locally, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> tox -e docs
+</pre></div>
+</div>
+<p>The built documentation can be found in the <code class="docutils literal notranslate"><span class="pre">docs/build</span></code> folder.</p>
+</div>
+<div class="section" id="what-next">
+<h2>What Next?<a class="headerlink" href="#what-next" title="Permalink to this headline">¶</a></h2>
+<p>The following pages may be helpful for new contributors on where to look next
+in order to start contributing.</p>
+<ul>
+<li><p>Some <a class="reference external" href="https://github.com/pypa/pip/labels/good%20first%20issue">good first issues</a> on GitHub for new contributors</p></li>
+<li><p>A deep dive into <a class="reference external" href="https://pip.pypa.io/en/latest/development/architecture/">pip’s architecture</a></p></li>
+<li><p>A guide on <a class="reference external" href="https://pip.pypa.io/en/latest/development/issue-triage/">triaging issues</a> for issue tracker</p></li>
+<li><p>Getting started with Git</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://guides.github.com/activities/hello-world/">Hello World for Git</a></p></li>
+<li><p><a class="reference external" href="https://guides.github.com/introduction/flow/">Understanding the GitHub flow</a></p></li>
+<li><p><a class="reference external" href="https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html">Start using Git on the command line</a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-the-source-code">Get the source code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-pip-from-source-tree">Running pip From Source Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-linters">Running Linters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-documentation">Building Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-next">What Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Development</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributing.html"
+                        title="next chapter">Contributing</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="contributing.html" title="Contributing"
+             >next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Development"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

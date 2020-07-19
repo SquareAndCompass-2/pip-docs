@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Release process &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Vendoring Policy" href="vendoring-policy.html" />
+    <link rel="prev" title="Options that control the installation process" href="architecture/upgrade-options.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="vendoring-policy.html" title="Vendoring Policy"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="architecture/upgrade-options.html" title="Options that control the installation process"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="release-process">
+<h1>Release process<a class="headerlink" href="#release-process" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="release-cadence">
+<h2>Release Cadence<a class="headerlink" href="#release-cadence" title="Permalink to this headline">¶</a></h2>
+<p>The pip project has a release cadence of releasing whatever is on <code class="docutils literal notranslate"><span class="pre">master</span></code>
+every 3 months. This gives users a predictable pattern for when releases
+are going to happen and prevents locking up improvements for fixes for long
+periods of time, while still preventing massively fracturing the user base
+with version numbers.</p>
+<p>Our release months are January, April, July, October. The release date within
+that month will be up to the release manager for that release. If there are
+no changes, then that release month is skipped and the next release will be
+3 month later.</p>
+<p>The release manager may, at their discretion, choose whether or not there
+will be a pre-release period for a release, and if there is may extend that
+period into the next month if needed.</p>
+<p>Because releases are made direct from the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, it is essential
+that <code class="docutils literal notranslate"><span class="pre">master</span></code> is always in a releasable state. It is acceptable to merge
+PRs that partially implement a new feature, but only if the partially
+implemented version is usable in that state (for example, with reduced
+functionality or disabled by default). In the case where a merged PR is found
+to need extra work before being released, the release manager always has the
+option to back out the partial change prior to a release. The PR can then be
+reworked and resubmitted for the next release.</p>
+</div>
+<div class="section" id="deprecation-policy">
+<h2>Deprecation Policy<a class="headerlink" href="#deprecation-policy" title="Permalink to this headline">¶</a></h2>
+<p>Any change to pip that removes or significantly alters user-visible behavior
+that is described in the pip documentation will be deprecated for a minimum of
+6 months before the change occurs. Deprecation will take the form of a warning
+being issued by pip when the feature is used. Longer deprecation periods, or
+deprecation warnings for behavior changes that would not normally be covered by
+this policy, are also possible depending on circumstances, but this is at the
+discretion of the pip developers.</p>
+<p>Note that the documentation is the sole reference for what counts as agreed
+behavior. If something isn’t explicitly mentioned in the documentation, it can
+be changed without warning, or any deprecation period, in a pip release.
+However, we are aware that the documentation isn’t always complete - PRs that
+document existing behavior with the intention of covering that behavior with
+the above deprecation process are always acceptable, and will be considered on
+their merits.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>pip has a helper function for making deprecation easier for pip maintainers.
+The supporting documentation can be found in the source code of
+<code class="docutils literal notranslate"><span class="pre">pip._internal.utils.deprecation.deprecated</span></code>. The function is not a part of
+pip’s public API.</p>
+</div>
+<div class="section" id="python-2-support">
+<h3>Python 2 support<a class="headerlink" href="#python-2-support" title="Permalink to this headline">¶</a></h3>
+<p>pip will continue to ensure that it runs on Python 2.7 after the CPython 2.7
+EOL date. Support for Python 2.7 will be dropped, if bugs in Python 2.7 itself
+make this necessary (which is unlikely) or in pip 21.0 (Jan 2021), whichever is
+earlier.</p>
+<p>However, bugs reported with pip which only occur on Python 2.7 would likely not
+be addressed directly by pip’s maintainers. Pull Requests to fix Python 2.7
+only bugs will be considered, and merged (subject to normal review processes).
+Note that there may be delays due to the lack of developer resources for
+reviewing such pull requests.</p>
+</div>
+</div>
+<div class="section" id="feature-flags">
+<h2>Feature Flags<a class="headerlink" href="#feature-flags" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-deprecated">
+<h3><code class="docutils literal notranslate"><span class="pre">--use-deprecated</span></code><a class="headerlink" href="#use-deprecated" title="Permalink to this headline">¶</a></h3>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">--use-deprecated=legacy-resolver</span></code></p>
+<p>Use for features that will be deprecated. Deprecated features should remain
+available behind this flag for at least six months, as per the deprecation
+policy.</p>
+<p>Features moved behind this flag should always include a warning that indicates
+when the feature is scheduled to be removed.</p>
+<p>Once the feature is removed, users who use the flag should be shown an error.</p>
+</div>
+<div class="section" id="use-feature">
+<h3><code class="docutils literal notranslate"><span class="pre">--use-feature</span></code><a class="headerlink" href="#use-feature" title="Permalink to this headline">¶</a></h3>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">--use-feature=2020-resolver</span></code></p>
+<p>Use for new features that users can test before they become pip’s default
+behaviour (e.g. alpha or beta releases).</p>
+<p>Once the feature becomes the default behaviour, this flag can remain in place,
+but should issue a warning telling the user that it is no longer necessary.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Release Process<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-a-new-release">
+<h3>Creating a new release<a class="headerlink" href="#creating-a-new-release" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Checkout the current pip <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p></li>
+<li><p>Ensure you have the latest <code class="docutils literal notranslate"><span class="pre">nox</span></code> installed.</p></li>
+<li><p>Prepare for release using <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">prepare-release</span> <span class="pre">--</span> <span class="pre">YY.N</span></code>.
+This will update the relevant files and tag the correct commit.</p></li>
+<li><p>Build the release artifacts using <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">build-release</span> <span class="pre">--</span> <span class="pre">YY.N</span></code>.
+This will checkout the tag, generate the distribution files to be
+uploaded and checkout the master branch again.</p></li>
+<li><p>Upload the release to PyPI using <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">upload-release</span> <span class="pre">--</span> <span class="pre">YY.N</span></code>.</p></li>
+<li><p>Push all of the changes including the tag.</p></li>
+<li><p>Regenerate the <code class="docutils literal notranslate"><span class="pre">get-pip.py</span></code> script in the <a class="reference external" href="https://github.com/pypa/get-pip">get-pip repository</a> (as
+documented there) and commit the results.</p></li>
+<li><p>Submit a Pull Request to <a class="reference external" href="https://github.com/python/cpython">CPython</a> adding the new version of pip (and upgrading
+setuptools) to <code class="docutils literal notranslate"><span class="pre">Lib/ensurepip/_bundled</span></code>, removing the existing version, and
+adjusting the versions listed in <code class="docutils literal notranslate"><span class="pre">Lib/ensurepip/__init__.py</span></code>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the release dropped the support of an obsolete Python version <code class="docutils literal notranslate"><span class="pre">M.m</span></code>,
+a new <code class="docutils literal notranslate"><span class="pre">M.m/get-pip.py</span></code> needs to be published: update the <code class="docutils literal notranslate"><span class="pre">all</span></code> task from
+<code class="docutils literal notranslate"><span class="pre">tasks/generate.py</span></code> in <a class="reference external" href="https://github.com/pypa/get-pip">get-pip repository</a> and make a pull request to
+<a class="reference external" href="https://github.com/python/psf-salt">psf-salt repository</a> to add the new <code class="docutils literal notranslate"><span class="pre">get-pip.py</span></code> (and its directory) to
+<code class="docutils literal notranslate"><span class="pre">salt/pypa/bootstrap/init.sls</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">get-pip.py</span></code> script needs to be updated due to changes in pip internals
+and if the last <code class="docutils literal notranslate"><span class="pre">M.m/get-pip.py</span></code> published still uses the default template, make
+sure to first duplicate <code class="docutils literal notranslate"><span class="pre">templates/default.py</span></code> as <code class="docutils literal notranslate"><span class="pre">templates/pre-YY.N.py</span></code>
+before updating it and specify in <code class="docutils literal notranslate"><span class="pre">tasks/generate.py</span></code> that <code class="docutils literal notranslate"><span class="pre">M.m/get-pip.py</span></code>
+now needs to use <code class="docutils literal notranslate"><span class="pre">templates/pre-YY.N.py</span></code>.</p>
+</div>
+</div>
+<div class="section" id="creating-a-bug-fix-release">
+<h3>Creating a bug-fix release<a class="headerlink" href="#creating-a-bug-fix-release" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we need to release a bugfix release of the form <code class="docutils literal notranslate"><span class="pre">YY.N.Z+1</span></code>. In
+order to create one of these the changes should already be merged into the
+<code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p>
+<ol class="arabic simple">
+<li><p>Create a new <code class="docutils literal notranslate"><span class="pre">release/YY.N.Z+1</span></code> branch off of the <code class="docutils literal notranslate"><span class="pre">YY.N</span></code> tag using the
+command <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">release/YY.N.Z+1</span> <span class="pre">YY.N</span></code>.</p></li>
+<li><p>Cherry pick the fixed commits off of the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, fixing any
+conflicts.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">prepare-release</span> <span class="pre">--</span> <span class="pre">YY.N.Z+1</span></code>.</p></li>
+<li><p>Merge master into your release branch and drop the news files that have been
+included in your release (otherwise they would also appear in the <code class="docutils literal notranslate"><span class="pre">YY.N+1</span></code>
+changelog)</p></li>
+<li><p>Push the <code class="docutils literal notranslate"><span class="pre">release/YY.N.Z+1</span></code> branch to github and submit a PR for it against
+the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch and wait for the tests to run.</p></li>
+<li><p>Once tests run, merge the <code class="docutils literal notranslate"><span class="pre">release/YY.N.Z+1</span></code> branch into master, and follow
+the above release process starting with step 4.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#release-cadence">Release Cadence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-policy">Deprecation Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-flags">Feature Flags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Release Process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="architecture/upgrade-options.html"
+                        title="previous chapter">Options that control the installation process</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="vendoring-policy.html"
+                        title="next chapter">Vendoring Policy</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="vendoring-policy.html" title="Vendoring Policy"
+             >next</a></li>
+        <li class="right" >
+          <a href="architecture/upgrade-options.html" title="Options that control the installation process"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

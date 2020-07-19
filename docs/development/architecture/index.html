@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Architecture of pip’s internals &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="next" title="Broad functionality overview" href="overview.html" />
+    <link rel="prev" title="Issue Triage" href="../issue-triage.html" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/py.png" />
+    
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="overview.html" title="Broad functionality overview"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../issue-triage.html" title="Issue Triage"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="architecture-of-pip-s-internals">
+<span id="architecture-pip-internals"></span><h1>Architecture of pip’s internals<a class="headerlink" href="#architecture-of-pip-s-internals" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If
+you’re interested in helping out, please let us know in the
+<a class="reference external" href="https://github.com/pypa/pip/issues/6831">tracking issue</a>, or just go ahead and submit a pull request and
+mention it in that tracking issue.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Direct use of pip’s internals is <em>not supported</em>, and these internals
+can change at any time. For more details, see <a class="reference internal" href="../../user_guide.html#using-pip-from-your-program"><span class="std std-ref">Fixing conflicting dependencies</span></a>.</p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Broad functionality overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#broad-overview-of-flow">Broad overview of flow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="anatomy.html">Repository anatomy &amp; directory structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="anatomy.html#root-and-tools">Root and tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anatomy.html#src-directory">src directory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration-files.html">Configuration File Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration-files.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration-files.html#configuration-class"><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration-files.html#kinds">kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration-files.html#future-refactoring-ideas">Future Refactoring Ideas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-packagefinder-class">The <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-linkcollector-class">The <code class="docutils literal notranslate"><span class="pre">LinkCollector</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-linkevaluator-class">The <code class="docutils literal notranslate"><span class="pre">LinkEvaluator</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-candidateevaluator-class">The <code class="docutils literal notranslate"><span class="pre">CandidateEvaluator</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-candidatepreferences-class">The <code class="docutils literal notranslate"><span class="pre">CandidatePreferences</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package-finding.html#the-bestcandidateresult-class">The <code class="docutils literal notranslate"><span class="pre">BestCandidateResult</span></code> class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade-options.html">Options that control the installation process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="upgrade-options.html#controlling-what-gets-installed">Controlling what gets installed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrade-options.html#controlling-what-gets-considered">Controlling what gets considered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrade-options.html#controlling-dependency-data">Controlling dependency data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrade-options.html#special-cases">Special cases</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture of pip’s internals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Broad functionality overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anatomy.html">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration-files.html">Configuration File Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrade-options.html">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../issue-triage.html"
+                        title="previous chapter">Issue Triage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="next chapter">Broad functionality overview</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="overview.html" title="Broad functionality overview"
+             >next</a></li>
+        <li class="right" >
+          <a href="../issue-triage.html" title="Issue Triage"
+             >previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

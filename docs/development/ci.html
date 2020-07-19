@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Continuous Integration &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Issue Triage" href="issue-triage.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="issue-triage.html" title="Issue Triage"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If
+you’re interested in helping out, please let us know in the
+<a class="reference external" href="https://github.com/pypa/pip/issues/7279">tracking issue</a>, or just submit a pull request and mention it in
+that tracking issue.</p>
+</div>
+<div class="section" id="continuous-integration">
+<h1>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="supported-interpreters">
+<h2>Supported interpreters<a class="headerlink" href="#supported-interpreters" title="Permalink to this headline">¶</a></h2>
+<p>pip support a variety of Python interpreters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CPython 2.7</p></li>
+<li><p>CPython 3.5</p></li>
+<li><p>CPython 3.6</p></li>
+<li><p>CPython 3.7</p></li>
+<li><p>CPython 3.8</p></li>
+<li><p>Latest PyPy</p></li>
+<li><p>Latest PyPy3</p></li>
+</ul>
+</div></blockquote>
+<p>on different operating systems:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linux</p></li>
+<li><p>Windows</p></li>
+<li><p>MacOS</p></li>
+</ul>
+</div></blockquote>
+<p>and on different architectures:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>x64</p></li>
+<li><p>x86</p></li>
+</ul>
+</div></blockquote>
+<p>so 42 hypothetical interpreters.</p>
+</div>
+<div class="section" id="checks">
+<h2>Checks<a class="headerlink" href="#checks" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> CI runs different kind of tests:</p>
+<ul class="simple">
+<li><p>lint (defined in <code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>)</p></li>
+<li><p>docs</p></li>
+<li><p>vendoring (is the <code class="docutils literal notranslate"><span class="pre">src/_internal/_vendor</span></code> directory cleanly vendored)</p></li>
+<li><p>unit tests (present in <code class="docutils literal notranslate"><span class="pre">tests/unit</span></code>)</p></li>
+<li><p>“integration” tests (mostly present in <code class="docutils literal notranslate"><span class="pre">tests/functional</span></code>)</p></li>
+<li><p>package (test the packaging steps)</p></li>
+</ul>
+<p>Since lint, docs, vendoring and package tests only need to run on a pip
+developer/contributor machine, they only need to be tested on the x64 variant
+of the 3 different operating systems, and when an interpreter needs to be
+specified it’s ok to require the latest CPython interpreter.</p>
+<p>So only unit tests and integration tests would need to be run with the different
+interpreters.</p>
+</div>
+<div class="section" id="services">
+<h2>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h2>
+<p>pip test suite and checks are distributed on three different platforms that
+provides free executors for open source packages:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/features/actions">GitHub Actions</a> (Used for code quality and development tasks)</p></li>
+<li><p><a class="reference external" href="https://azure.microsoft.com/en-us/services/devops/">Azure DevOps CI</a> (Used for tests)</p></li>
+<li><p><a class="reference external" href="https://travis-ci.org/">Travis CI</a> (Used for PyPy tests)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="current-run-tests">
+<h2>Current run tests<a class="headerlink" href="#current-run-tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="developer-tasks">
+<h3>Developer tasks<a class="headerlink" href="#developer-tasks" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 23%" />
+<col style="width: 26%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>OS</p></th>
+<th class="head"><p>docs</p></th>
+<th class="head"><p>lint</p></th>
+<th class="head"><p>vendoring</p></th>
+<th class="head"><p>packaging</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Linux</p></td>
+<td><p>Travis, Github</p></td>
+<td><p>Travis, Github</p></td>
+<td><p>Travis, Github</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>Windows</p></td>
+<td><p>Github</p></td>
+<td><p>Github</p></td>
+<td><p>Github</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>MacOS</p></td>
+<td><p>Github</p></td>
+<td><p>Github</p></td>
+<td><p>Github</p></td>
+<td><p>Azure</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="actual-testing">
+<h3>Actual testing<a class="headerlink" href="#actual-testing" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 17%" />
+<col style="width: 12%" />
+<col style="width: 25%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td colspan="3"><p><strong>interpreter</strong></p></td>
+<td><p><strong>unit</strong></p></td>
+<td><p><strong>integration</strong></p></td>
+</tr>
+<tr class="row-even"><td rowspan="14"><p>Windows</p></td>
+<td rowspan="7"><p>x86</p></td>
+<td><p>CP2.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.5</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.6</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.7</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.8</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PyPy3</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="7"><p>x64</p></td>
+<td><p>CP2.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>CP3.5</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.6</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.7</p></td>
+<td><p>Azure</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.8</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>PyPy</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy3</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="14"><p>Linux</p></td>
+<td rowspan="7"><p>x86</p></td>
+<td><p>CP2.7</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.5</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.6</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.7</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.8</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PyPy3</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="7"><p>x64</p></td>
+<td><p>CP2.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>CP3.5</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.6</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>CP3.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.8</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>PyPy</p></td>
+<td><p>Travis</p></td>
+<td><p>Travis</p></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy3</p></td>
+<td><p>Travis</p></td>
+<td><p>Travis</p></td>
+</tr>
+<tr class="row-even"><td rowspan="14"><p>MacOS</p></td>
+<td rowspan="7"><p>x86</p></td>
+<td><p>CP2.7</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.5</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.6</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.7</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CP3.8</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PyPy3</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td rowspan="7"><p>x64</p></td>
+<td><p>CP2.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>CP3.5</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.6</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>CP3.7</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-odd"><td><p>CP3.8</p></td>
+<td><p>Azure</p></td>
+<td><p>Azure</p></td>
+</tr>
+<tr class="row-even"><td><p>PyPy</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PyPy3</p></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-interpreters">Supported interpreters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checks">Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#services">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#current-run-tests">Current run tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contributing.html"
+                        title="previous chapter">Contributing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="issue-triage.html"
+                        title="next chapter">Issue Triage</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="issue-triage.html" title="Issue Triage"
+             >next</a></li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

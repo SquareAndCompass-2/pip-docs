@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuration File Handling &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/contentui.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="next" title="Finding and choosing files (index and PackageFinder)" href="package-finding.html" />
+    <link rel="prev" title="Repository anatomy &amp; directory structure" href="anatomy.html" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/py.png" />
+    
+    <script type="text/javascript" src="../../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="package-finding.html" title="Finding and choosing files (index and PackageFinder)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="anatomy.html" title="Repository anatomy &amp; directory structure"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration-file-handling">
+<h1>Configuration File Handling<a class="headerlink" href="#configuration-file-handling" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">pip._internal.configuration</span></code> module is responsible for handling
+(eg. loading from and saving values to) configuration files that are used by
+pip. The module’s functionality is largely exposed through and coordinated by
+the module’s <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If you’re
+interested in helping out, please let us know in the
+<a class="reference external" href="https://github.com/pypa/pip/issues/6831">tracking issue</a>.</p>
+</div>
+<div class="section" id="overview">
+<span id="configuration-overview"></span><h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>pip stores configuration files in standard OS-appropriate locations, which are
+determined by <code class="docutils literal notranslate"><span class="pre">appdirs</span></code>. These files are in the INI format and are processed
+with <code class="docutils literal notranslate"><span class="pre">RawConfigParser</span></code>.</p>
+<p>pip uses configuration files in two operations:</p>
+<ul class="simple">
+<li><p>During processing of command line options.</p>
+<ul>
+<li><p>Reading from <em>all</em> configuration sources</p></li>
+</ul>
+</li>
+<li><p>As part of <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">config</span></code> command.</p>
+<ul>
+<li><p>Reading from <em>all</em> configuration sources</p></li>
+<li><p>Manipulating a single configuration file</p></li>
+</ul>
+</li>
+</ul>
+<p>Both of these operations utilize functionality provided the <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>
+object, which encapsulates all the logic for handling configuration files and
+provides APIs for the same.</p>
+<p>The remainder of this section documents the <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> class, and
+discusses potential future refactoring ideas.</p>
+</div>
+<div class="section" id="configuration-class">
+<span id="id1"></span><h2><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> class<a class="headerlink" href="#configuration-class" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> loads configuration values from sources in the local
+environment: a combination of configuration files and environment variables.</p>
+<p>It can be used in two “modes”, for reading all the values from the local
+environment and for manipulating a single configuration file. It differentiates
+between these two modes using the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> attribute, which can be None or
+represent the <a class="reference internal" href="#config-kinds"><span class="std std-ref">kind</span></a> of the configuration file to be
+manipulated.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">isolated</span></code> attribute determines which sources are used when loading the
+configuration. If <code class="docutils literal notranslate"><span class="pre">isolated</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, user-specific configuration files
+and environment variables are not used.</p>
+<div class="section" id="reading-from-local-environment">
+<h3>Reading from local environment<a class="headerlink" href="#reading-from-local-environment" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> can be used to read from all configuration sources in the
+local environment and access the values, as per the precedence logic described
+in the <a class="reference internal" href="../../user_guide.html#config-precedence"><span class="std std-ref">Config Precedence</span></a> section.</p>
+<p>For this use case, the <code class="docutils literal notranslate"><span class="pre">Configuration.load_only</span></code> attribute would be <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+and the methods used would be:</p>
+<dl class="class">
+<dt id="Configuration">
+<em class="property">class </em><code class="sig-name descname">Configuration</code><a class="headerlink" href="#Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Configuration.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles all the interactions with the environment, to load all the
+configuration data into objects in memory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Configuration.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides key-value pairs (like <code class="docutils literal notranslate"><span class="pre">dict.items()</span></code>) from the loaded-in-memory
+information, handling all of the override ordering logic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Configuration.get_value">
+<code class="sig-name descname">get_value</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.get_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the value of the given key from the loaded configuration.
+The loaded configuration may have <code class="docutils literal notranslate"><span class="pre">load_only</span></code> be None or non-None.
+This uses the same underlying mechanism as <code class="docutils literal notranslate"><span class="pre">Configuration.items()</span></code> and
+does follow the precedence logic described in <a class="reference internal" href="../../user_guide.html#config-precedence"><span class="std std-ref">Config Precedence</span></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>At the time of writing, the parts of the codebase that use <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>
+in this manner are: <code class="docutils literal notranslate"><span class="pre">ConfigOptionParser</span></code>, to transparently include
+configuration handling as part of the command line processing logic,
+and <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">config</span> <span class="pre">get</span></code>, for printing the entire configuration when no
+<a class="reference internal" href="#config-kinds"><span class="std std-ref">kind</span></a> is specified via the CLI.</p>
+</div>
+<div class="section" id="manipulating-a-single-configuration-file">
+<h3>Manipulating a single configuration file<a class="headerlink" href="#manipulating-a-single-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> can be used to manipulate a single configuration file,
+such as to add, change or remove certain key-value pairs.</p>
+<p>For this use case, the <code class="docutils literal notranslate"><span class="pre">load_only</span></code> attribute would be non-None, and would
+represent the <a class="reference internal" href="#config-kinds"><span class="std std-ref">kind</span></a> of the configuration file to be
+manipulated. In addition to the methods discussed in the previous section,
+the methods used would be:</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-name descname">Configuration</code></dt>
+<dd><dl class="method">
+<dt id="Configuration.get_file_to_edit">
+<code class="sig-name descname">get_file_to_edit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.get_file_to_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the “highest priority” file, for the <a class="reference internal" href="#config-kinds"><span class="std std-ref">kind</span></a> of
+configuration file specified by <code class="docutils literal notranslate"><span class="pre">load_only</span></code>. This requires <code class="docutils literal notranslate"><span class="pre">load_only</span></code>
+to be non-None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Configuration.set_value">
+<code class="sig-name descname">set_value</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a way to add/change a single key-value pair, in the file specified
+by <code class="docutils literal notranslate"><span class="pre">Configuration.get_file_to_edit()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Configuration.unset_value">
+<code class="sig-name descname">unset_value</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.unset_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a way to remove a single key-value pair, in the file specified
+by <code class="docutils literal notranslate"><span class="pre">Configuration.get_file_to_edit()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Configuration.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Configuration.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the in-memory state of to the original files, saving any modifications
+made to the <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> object back into the local environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="kinds">
+<span id="config-kinds"></span><h2>kinds<a class="headerlink" href="#kinds" title="Permalink to this headline">¶</a></h2>
+<p>This is an enumeration that provides values to represent a “source” for
+configuration. This includes environment variables and various types of
+configuration files (global, site-specific, user_specific, specified via
+<code class="docutils literal notranslate"><span class="pre">PIP_CONFIG_FILE</span></code>).</p>
+</div>
+<div class="section" id="future-refactoring-ideas">
+<h2>Future Refactoring Ideas<a class="headerlink" href="#future-refactoring-ideas" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Break up the <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> class into 2 smaller classes, by use case</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Command</span></code> use-case (read only) -- <code class="docutils literal notranslate"><span class="pre">ConfigurationReader</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">config</span></code> use-case (read / write) -- <code class="docutils literal notranslate"><span class="pre">ConfigurationModifier</span></code> (inherit from <code class="docutils literal notranslate"><span class="pre">ConfigurationReader</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Eagerly populate <code class="docutils literal notranslate"><span class="pre">Configuration._dictionary</span></code> on load.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Architecture of pip’s internals</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">Broad functionality overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="anatomy.html">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configuration File Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrade-options.html">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="anatomy.html"
+                        title="previous chapter">Repository anatomy &amp; directory structure</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="package-finding.html"
+                        title="next chapter">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="package-finding.html" title="Finding and choosing files (index and PackageFinder)"
+             >next</a></li>
+        <li class="right" >
+          <a href="anatomy.html" title="Repository anatomy &amp; directory structure"
+             >previous</a> |</li>
+    <li><img src="../../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Architecture of pip’s internals</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

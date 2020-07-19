@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documentation Conventions &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation-conventions">
+<h1>Documentation Conventions<a class="headerlink" href="#documentation-conventions" title="Permalink to this headline">¶</a></h1>
+<p>This document describes the conventions used in pip’s documentation. We
+expect it to evolve over time as additional conventions are identified
+and past conventions are rendered obsolete.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, these conventions are not enforced automatically, and
+need to be verified manually during code review. We are interested
+in linters that can help us enforce these conventions automatically.</p>
+</div>
+<div class="section" id="files">
+<h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="naming">
+<h3>Naming<a class="headerlink" href="#naming" title="Permalink to this headline">¶</a></h3>
+<p>Folder names should be a single word, all lowercase.</p>
+<p>File names must use the kebab-case style (all lowercase, hyphen for
+separating words) and have the extension <code class="docutils literal notranslate"><span class="pre">.rst</span></code>.</p>
+</div>
+<div class="section" id="encoding">
+<h3>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h3>
+<p>All files in our documentation must use UTF-8 encoding.</p>
+</div>
+<div class="section" id="line-length">
+<h3>Line Length<a class="headerlink" href="#line-length" title="Permalink to this headline">¶</a></h3>
+<p>Limit all lines to a maximum of 72 characters, where possible. This may
+be exceeded when it does not make sense to abide by it (eg. long links,
+code blocks).</p>
+</div>
+</div>
+<div class="section" id="headings">
+<h2>Headings<a class="headerlink" href="#headings" title="Permalink to this headline">¶</a></h2>
+<p>Use the following symbols to create headings:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span></code> with overline</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></li>
+</ol>
+<p>For visual separation from the rest of the content, all other headings
+must have one empty line before and after. Heading 2 (<code class="docutils literal notranslate"><span class="pre">=</span></code>) should have
+two empty lines before, for indicating the end of the section prior to
+it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=========</span>
+<span class="n">Heading</span> <span class="mi">1</span>
+<span class="o">=========</span>
+
+<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">consectetur</span> <span class="n">adipisicing</span> <span class="n">elit</span><span class="o">.</span>
+
+
+<span class="n">Heading</span> <span class="mi">2</span>
+<span class="o">=========</span>
+
+<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">consectetur</span> <span class="n">adipisicing</span> <span class="n">elit</span><span class="o">.</span>
+
+<span class="n">Heading</span> <span class="mi">3</span>
+<span class="o">---------</span>
+
+<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">consectetur</span> <span class="n">adipisicing</span> <span class="n">elit</span><span class="o">.</span>
+
+<span class="n">Heading</span> <span class="mi">4</span>
+<span class="o">^^^^^^^^^</span>
+
+<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">consectetur</span> <span class="n">adipisicing</span> <span class="n">elit</span><span class="o">.</span>
+
+<span class="n">Heading</span> <span class="mi">5</span>
+<span class="sd">&#39;&#39;&#39;&#39;&#39;&#39;</span><span class="s1">&#39;&#39;&#39;</span>
+
+<span class="s1">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+
+<span class="s1">Heading 6</span>
+<span class="s1">*********</span>
+
+<span class="s1">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing">
+<h2>Writing<a class="headerlink" href="#writing" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We’re still discussing <em>how</em> pip should be capitalized in prose. The
+current statement here is tentative.</p>
+</div>
+<p>pip is a proper noun, and spelt all lowercase. Do not capitalize pip as
+“Pip” at the start of a sentence.</p>
+<p>Avoid using phrases such as “easy”, “just”, “simply” etc, which imply
+that the task is trivial. If it were trivial, the user wouldn’t be
+reading the documentation for it.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

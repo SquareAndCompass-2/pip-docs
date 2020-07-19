@@ -1,0 +1,1116 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>User Guide &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/contentui.js"></script>
+    
+    <script src="_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="next" title="Reference Guide" href="reference/index.html" />
+    <link rel="prev" title="Installation" href="installing.html" />
+    <link rel="shortcut icon" type="image/png" href="_static/py.png" />
+    
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="reference/index.html" title="Reference Guide"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="installing.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+    <li><img src="_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-guide">
+<h1><a class="toc-backref" href="#id10">User Guide</a><a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#user-guide" id="id10">User Guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#running-pip" id="id11">Running pip</a></p></li>
+<li><p><a class="reference internal" href="#installing-packages" id="id12">Installing Packages</a></p></li>
+<li><p><a class="reference internal" href="#basic-authentication-credentials" id="id13">Basic Authentication Credentials</a></p></li>
+<li><p><a class="reference internal" href="#using-a-proxy-server" id="id14">Using a Proxy Server</a></p></li>
+<li><p><a class="reference internal" href="#requirements-files" id="id15">Requirements Files</a></p></li>
+<li><p><a class="reference internal" href="#constraints-files" id="id16">Constraints Files</a></p></li>
+<li><p><a class="reference internal" href="#installing-from-wheels" id="id17">Installing from Wheels</a></p></li>
+<li><p><a class="reference internal" href="#uninstalling-packages" id="id18">Uninstalling Packages</a></p></li>
+<li><p><a class="reference internal" href="#listing-packages" id="id19">Listing Packages</a></p></li>
+<li><p><a class="reference internal" href="#searching-for-packages" id="id20">Searching for Packages</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id21">Configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#config-file" id="id22">Config file</a></p></li>
+<li><p><a class="reference internal" href="#environment-variables" id="id23">Environment Variables</a></p></li>
+<li><p><a class="reference internal" href="#config-precedence" id="id24">Config Precedence</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#command-completion" id="id25">Command Completion</a></p></li>
+<li><p><a class="reference internal" href="#installing-from-local-packages" id="id26">Installing from local packages</a></p></li>
+<li><p><a class="reference internal" href="#only-if-needed-recursive-upgrade" id="id27">“Only if needed” Recursive Upgrade</a></p></li>
+<li><p><a class="reference internal" href="#user-installs" id="id28">User Installs</a></p></li>
+<li><p><a class="reference internal" href="#ensuring-repeatability" id="id29">Ensuring Repeatability</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pinned-version-numbers" id="id30">Pinned Version Numbers</a></p></li>
+<li><p><a class="reference internal" href="#hash-checking-mode" id="id31">Hash-checking Mode</a></p></li>
+<li><p><a class="reference internal" href="#installation-bundles" id="id32">Installation Bundles</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fixing-conflicting-dependencies" id="id33">Fixing conflicting dependencies</a></p>
+<ul>
+<li><p><a class="reference internal" href="#understanding-your-error-message" id="id34">Understanding your error message</a></p></li>
+<li><p><a class="reference internal" href="#possible-solutions" id="id35">Possible solutions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#audit-your-top-level-requirements" id="id36">1. Audit your top level requirements</a></p></li>
+<li><p><a class="reference internal" href="#loosen-your-top-level-requirements" id="id37">2. Loosen your top level requirements</a></p></li>
+<li><p><a class="reference internal" href="#loosen-the-requirements-of-your-dependencies" id="id38">3. Loosen the requirements of your dependencies</a></p></li>
+<li><p><a class="reference internal" href="#all-requirements-are-loose-but-a-solution-does-not-exist" id="id39">4. All requirements are loose, but a solution does not exist</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#getting-help" id="id40">Getting help</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id9" id="id41">Using pip from your program</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="running-pip">
+<h2><a class="toc-backref" href="#id11">Running pip</a><a class="headerlink" href="#running-pip" title="Permalink to this headline">¶</a></h2>
+<p>pip is a command line program. When you install pip, a <code class="docutils literal notranslate"><span class="pre">pip</span></code> command is added
+to your system, which can be run from the command prompt as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip &lt;pip arguments&gt;
+</pre></div>
+</div>
+<p>If you cannot run the <code class="docutils literal notranslate"><span class="pre">pip</span></code> command directly (possibly because the location
+where it was installed isn’t on your operating system’s <code class="docutils literal notranslate"><span class="pre">PATH</span></code>) then you can
+run pip via the Python interpreter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip &lt;pip arguments&gt;
+</pre></div>
+</div>
+<p>On Windows, the <code class="docutils literal notranslate"><span class="pre">py</span></code> launcher can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ py -m pip &lt;pip arguments&gt;
+</pre></div>
+</div>
+<p>Even though pip is available from your Python installation as an importable
+module, via <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pip</span></code>, it is <em>not supported</em> to use pip in this way. For
+more details, see <a class="reference internal" href="#using-pip-from-your-program"><span class="std std-ref">Fixing conflicting dependencies</span></a>.</p>
+</div>
+<div class="section" id="installing-packages">
+<h2><a class="toc-backref" href="#id12">Installing Packages</a><a class="headerlink" href="#installing-packages" title="Permalink to this headline">¶</a></h2>
+<p>pip supports installing from <a class="reference external" href="https://pypi.org/">PyPI</a>, version control, local projects, and
+directly from distribution files.</p>
+<p>The most common scenario is to install from <a class="reference external" href="https://pypi.org/">PyPI</a> using <a class="reference internal" href="reference/pip_install.html#requirement-specifiers"><span class="std std-ref">Requirement Specifiers</span></a></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install SomePackage            # latest version
+$ pip install SomePackage==1.0.4     # specific version
+$ pip install &#39;SomePackage&gt;=1.0.4&#39;     # minimum version
+</pre></div>
+</div>
+</div></blockquote>
+<p>For more information and examples, see the <a class="reference internal" href="reference/pip_install.html#pip-install"><span class="std std-ref">pip install</span></a> reference.</p>
+</div>
+<div class="section" id="basic-authentication-credentials">
+<h2><a class="toc-backref" href="#id13">Basic Authentication Credentials</a><a class="headerlink" href="#basic-authentication-credentials" title="Permalink to this headline">¶</a></h2>
+<p>pip supports basic authentication credentials. Basically, in the URL there is
+a username and password separated by <code class="docutils literal notranslate"><span class="pre">:</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://[username[:password]&#64;]pypi.company.com/simple</span></code></p>
+<p>Certain special characters are not valid in the authentication part of URLs.
+If the user or password part of your login credentials contain any of the
+special characters
+<a class="reference external" href="https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters">here</a>
+then they must be percent-encoded. For example, for a
+user with username “user” and password “he//o” accessing a repository at
+pypi.company.com, the index URL with credentials would look like:</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://user:he%2F%2Fo&#64;pypi.company.com</span></code></p>
+<p>Support for percent-encoded authentication in index URLs was added in pip 10.0.0
+(in <a class="reference external" href="https://github.com/pypa/pip/issues/3236">#3236</a>). Users that must use authentication
+for their Python repository on systems with older pip versions should make the latest
+get-pip.py available in their environment to bootstrap pip to a recent-enough version.</p>
+<p>For indexes that only require single-part authentication tokens, provide the token
+as the “username” and do not provide a password, for example -</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://0123456789abcdef&#64;pypi.company.com</span></code></p>
+</div>
+<div class="section" id="using-a-proxy-server">
+<h2><a class="toc-backref" href="#id14">Using a Proxy Server</a><a class="headerlink" href="#using-a-proxy-server" title="Permalink to this headline">¶</a></h2>
+<p>When installing packages from <a class="reference external" href="https://pypi.org/">PyPI</a>, pip requires internet access, which
+in many corporate environments requires an outbound HTTP proxy server.</p>
+<p>pip can be configured to connect through a proxy server in various ways:</p>
+<ul class="simple">
+<li><p>using the <code class="docutils literal notranslate"><span class="pre">--proxy</span></code> command-line option to specify a proxy in the form
+<code class="docutils literal notranslate"><span class="pre">[user:passwd&#64;]proxy.server:port</span></code></p></li>
+<li><p>using <code class="docutils literal notranslate"><span class="pre">proxy</span></code> in a <a class="reference internal" href="#config-file"><span class="std std-ref">Config file</span></a></p></li>
+<li><p>by setting the standard environment-variables <code class="docutils literal notranslate"><span class="pre">http_proxy</span></code>, <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code>
+and <code class="docutils literal notranslate"><span class="pre">no_proxy</span></code>.</p></li>
+<li><p>using the environment variable <code class="docutils literal notranslate"><span class="pre">PIP_USER_AGENT_USER_DATA</span></code> to include
+a JSON-encoded string in the user-agent variable used in pip’s requests.</p></li>
+</ul>
+</div>
+<div class="section" id="requirements-files">
+<span id="id2"></span><h2><a class="toc-backref" href="#id15">Requirements Files</a><a class="headerlink" href="#requirements-files" title="Permalink to this headline">¶</a></h2>
+<p>“Requirements files” are files containing a list of items to be
+installed using <a class="reference internal" href="reference/pip_install.html#pip-install"><span class="std std-ref">pip install</span></a> like so:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Details on the format of the files are here: <a class="reference internal" href="reference/pip_install.html#requirements-file-format"><span class="std std-ref">Requirements File Format</span></a>.</p>
+<p>Logically, a Requirements file is just a list of <a class="reference internal" href="reference/pip_install.html#pip-install"><span class="std std-ref">pip install</span></a> arguments
+placed in a file. Note that you should not rely on the items in the file being
+installed by pip in any particular order.</p>
+<p>In practice, there are 4 common uses of Requirements files:</p>
+<ol class="arabic">
+<li><p>Requirements files are used to hold the result from <a class="reference internal" href="reference/pip_freeze.html#pip-freeze"><span class="std std-ref">pip freeze</span></a> for the
+purpose of achieving <a class="reference internal" href="#repeatability"><span class="std std-ref">repeatable installations</span></a>.  In
+this case, your requirement file contains a pinned version of everything that
+was installed when <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> was run.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p>Requirements files are used to force pip to properly resolve dependencies.
+As it is now, pip <a class="reference external" href="https://github.com/pypa/pip/issues/988">doesn’t have true dependency resolution</a>, but instead simply uses the first
+specification it finds for a project. E.g. if <code class="docutils literal notranslate"><span class="pre">pkg1</span></code> requires
+<code class="docutils literal notranslate"><span class="pre">pkg3&gt;=1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">pkg2</span></code> requires <code class="docutils literal notranslate"><span class="pre">pkg3&gt;=1.0,&lt;=2.0</span></code>, and if <code class="docutils literal notranslate"><span class="pre">pkg1</span></code> is
+resolved first, pip will only use <code class="docutils literal notranslate"><span class="pre">pkg3&gt;=1.0</span></code>, and could easily end up
+installing a version of <code class="docutils literal notranslate"><span class="pre">pkg3</span></code> that conflicts with the needs of <code class="docutils literal notranslate"><span class="pre">pkg2</span></code>.
+To solve this problem, you can place <code class="docutils literal notranslate"><span class="pre">pkg3&gt;=1.0,&lt;=2.0</span></code> (i.e. the correct
+specification) into your requirements file directly along with the other top
+level requirements. Like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pkg1</span>
+<span class="n">pkg2</span>
+<span class="n">pkg3</span><span class="o">&gt;=</span><span class="mf">1.0</span><span class="p">,</span><span class="o">&lt;=</span><span class="mf">2.0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Requirements files are used to force pip to install an alternate version of a
+sub-dependency.  For example, suppose <code class="docutils literal notranslate"><span class="pre">ProjectA</span></code> in your requirements file
+requires <code class="docutils literal notranslate"><span class="pre">ProjectB</span></code>, but the latest version (v1.3) has a bug, you can force
+pip to accept earlier versions like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ProjectA</span>
+<span class="n">ProjectB</span><span class="o">&lt;</span><span class="mf">1.3</span>
+</pre></div>
+</div>
+</li>
+<li><p>Requirements files are used to override a dependency with a local patch that
+lives in version control.  For example, suppose a dependency
+<code class="docutils literal notranslate"><span class="pre">SomeDependency</span></code> from PyPI has a bug, and you can’t wait for an upstream
+fix.
+You could clone/copy the src, make the fix, and place it in VCS with the tag
+<code class="docutils literal notranslate"><span class="pre">sometag</span></code>.  You’d reference it in your requirements file with a line like
+so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">myvcs</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">some_dependency</span><span class="nd">@sometag</span><span class="c1">#egg=SomeDependency</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">SomeDependency</span></code> was previously a top-level requirement in your
+requirements file, then <strong>replace</strong> that line with the new line. If
+<code class="docutils literal notranslate"><span class="pre">SomeDependency</span></code> is a sub-dependency, then <strong>add</strong> the new line.</p>
+</li>
+</ol>
+<p>It’s important to be clear that pip determines package dependencies using
+<a class="reference external" href="https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies">install_requires metadata</a>,
+not by discovering <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> files embedded in projects.</p>
+<p>See also:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/pip_install.html#requirements-file-format"><span class="std std-ref">Requirements File Format</span></a></p></li>
+<li><p><a class="reference internal" href="reference/pip_freeze.html#pip-freeze"><span class="std std-ref">pip freeze</span></a></p></li>
+<li><p><a class="reference external" href="https://caremad.io/2013/07/setup-vs-requirement/">“setup.py vs requirements.txt” (an article by Donald Stufft)</a></p></li>
+</ul>
+</div>
+<div class="section" id="constraints-files">
+<span id="id3"></span><h2><a class="toc-backref" href="#id16">Constraints Files</a><a class="headerlink" href="#constraints-files" title="Permalink to this headline">¶</a></h2>
+<p>Constraints files are requirements files that only control which version of a
+requirement is installed, not whether it is installed or not. Their syntax and
+contents is nearly identical to <a class="reference internal" href="#requirements-files"><span class="std std-ref">Requirements Files</span></a>. There is one key
+difference: Including a package in a constraints file does not trigger
+installation of the package.</p>
+<p>Use a constraints file like so:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">constraints</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Constraints files are used for exactly the same reason as requirements files
+when you don’t know exactly what things you want to install. For instance, say
+that the “helloworld” package doesn’t work in your environment, so you have a
+local patched version. Some things you install depend on “helloworld”, and some
+don’t.</p>
+<p>One way to ensure that the patched version is used consistently is to
+manually audit the dependencies of everything you install, and if “helloworld”
+is present, write a requirements file to use when installing that thing.</p>
+<p>Constraints files offer a better way: write a single constraints file for your
+organisation and use that everywhere. If the thing being installed requires
+“helloworld” to be installed, your fixed version specified in your constraints
+file will be used.</p>
+<p>Constraints file support was added in pip 7.1.</p>
+</div>
+<div class="section" id="installing-from-wheels">
+<span id="id4"></span><h2><a class="toc-backref" href="#id17">Installing from Wheels</a><a class="headerlink" href="#installing-from-wheels" title="Permalink to this headline">¶</a></h2>
+<p>“Wheel” is a built, archive format that can greatly speed installation compared
+to building and installing from source archives. For more information, see the
+<a class="reference external" href="https://wheel.readthedocs.io">Wheel docs</a> , <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0427"><strong>PEP 427</strong></a>, and <span class="target" id="index-1"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0425"><strong>PEP 425</strong></a>.</p>
+<p>pip prefers Wheels where they are available. To disable this, use the
+<a class="reference internal" href="reference/pip_install.html#install-no-binary"><span class="std std-ref">--no-binary</span></a> flag for <a class="reference internal" href="reference/pip_install.html#pip-install"><span class="std std-ref">pip install</span></a>.</p>
+<p>If no satisfactory wheels are found, pip will default to finding source
+archives.</p>
+<p>To install directly from a wheel archive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">SomePackage</span><span class="o">-</span><span class="mf">1.0</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+<p>For the cases where wheels are not available, pip offers <a class="reference internal" href="reference/pip_wheel.html#pip-wheel"><span class="std std-ref">pip wheel</span></a> as a
+convenience, to build wheels for all your requirements and dependencies.</p>
+<p><a class="reference internal" href="reference/pip_wheel.html#pip-wheel"><span class="std std-ref">pip wheel</span></a> requires the <a class="reference external" href="https://pypi.org/project/wheel/">wheel package</a> to be installed, which provides the
+“bdist_wheel” setuptools extension that it uses.</p>
+<p>To build wheels for your requirements and all their dependencies to a local
+directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">wheel</span>
+<span class="n">pip</span> <span class="n">wheel</span> <span class="o">--</span><span class="n">wheel</span><span class="o">-</span><span class="nb">dir</span><span class="o">=/</span><span class="n">local</span><span class="o">/</span><span class="n">wheels</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>And <em>then</em> to install those requirements just using your local directory of
+wheels (and not from PyPI):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=/</span><span class="n">local</span><span class="o">/</span><span class="n">wheels</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uninstalling-packages">
+<h2><a class="toc-backref" href="#id18">Uninstalling Packages</a><a class="headerlink" href="#uninstalling-packages" title="Permalink to this headline">¶</a></h2>
+<p>pip is able to uninstall most packages like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip uninstall SomePackage
+</pre></div>
+</div>
+<p>pip also performs an automatic uninstall of an old version of a package
+before upgrading to a newer version.</p>
+<p>For more information and examples, see the <a class="reference internal" href="reference/pip_uninstall.html#pip-uninstall"><span class="std std-ref">pip uninstall</span></a> reference.</p>
+</div>
+<div class="section" id="listing-packages">
+<h2><a class="toc-backref" href="#id19">Listing Packages</a><a class="headerlink" href="#listing-packages" title="Permalink to this headline">¶</a></h2>
+<p>To list installed packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip list
+docutils (0.9.1)
+Jinja2 (2.6)
+Pygments (1.5)
+Sphinx (1.1.2)
+</pre></div>
+</div>
+<p>To list outdated packages, and show the latest version available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip list --outdated
+docutils (Current: 0.9.1 Latest: 0.10)
+Sphinx (Current: 1.1.2 Latest: 1.1.3)
+</pre></div>
+</div>
+<p>To show details about an installed package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip show sphinx
+---
+Name: Sphinx
+Version: 1.1.3
+Location: /my/env/lib/pythonx.x/site-packages
+Requires: Pygments, Jinja2, docutils
+</pre></div>
+</div>
+<p>For more information and examples, see the <a class="reference internal" href="reference/pip_list.html#pip-list"><span class="std std-ref">pip list</span></a> and <a class="reference internal" href="reference/pip_show.html#pip-show"><span class="std std-ref">pip show</span></a>
+reference pages.</p>
+</div>
+<div class="section" id="searching-for-packages">
+<h2><a class="toc-backref" href="#id20">Searching for Packages</a><a class="headerlink" href="#searching-for-packages" title="Permalink to this headline">¶</a></h2>
+<p>pip can search <a class="reference external" href="https://pypi.org/">PyPI</a> for packages using the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">search</span></code>
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip search &quot;query&quot;
+</pre></div>
+</div>
+<p>The query will be used to search the names and summaries of all
+packages.</p>
+<p>For more information and examples, see the <a class="reference internal" href="reference/pip_search.html#pip-search"><span class="std std-ref">pip search</span></a> reference.</p>
+</div>
+<div class="section" id="configuration">
+<span id="id5"></span><h2><a class="toc-backref" href="#id21">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="config-file">
+<span id="id6"></span><h3><a class="toc-backref" href="#id22">Config file</a><a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h3>
+<p>pip allows you to set all command line option defaults in a standard ini
+style config file.</p>
+<p>The names and locations of the configuration files vary slightly across
+platforms. You may have per-user, per-virtualenv or site-wide (shared amongst
+all users) configuration:</p>
+<p><strong>Per-user</strong>:</p>
+<ul class="simple">
+<li><p>On Unix the default configuration file is: <code class="file docutils literal notranslate"><span class="pre">$HOME/.config/pip/pip.conf</span></code>
+which respects the <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> environment variable.</p></li>
+<li><p>On macOS the configuration file is
+<code class="file docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/pip/pip.conf</span></code>
+if directory <code class="docutils literal notranslate"><span class="pre">$HOME/Library/Application</span> <span class="pre">Support/pip</span></code> exists
+else <code class="file docutils literal notranslate"><span class="pre">$HOME/.config/pip/pip.conf</span></code>.</p></li>
+<li><p>On Windows the configuration file is <code class="file docutils literal notranslate"><span class="pre">%APPDATA%\pip\pip.ini</span></code>.</p></li>
+</ul>
+<p>There are also a legacy per-user configuration file which is also respected,
+these are located at:</p>
+<ul class="simple">
+<li><p>On Unix and macOS the configuration file is: <code class="file docutils literal notranslate"><span class="pre">$HOME/.pip/pip.conf</span></code></p></li>
+<li><p>On Windows the configuration file is: <code class="file docutils literal notranslate"><span class="pre">%HOME%\pip\pip.ini</span></code></p></li>
+</ul>
+<p>You can set a custom path location for this config file using the environment
+variable <code class="docutils literal notranslate"><span class="pre">PIP_CONFIG_FILE</span></code>.</p>
+<p><strong>Inside a virtualenv</strong>:</p>
+<ul class="simple">
+<li><p>On Unix and macOS the file is <code class="file docutils literal notranslate"><span class="pre">$VIRTUAL_ENV/pip.conf</span></code></p></li>
+<li><p>On Windows the file is: <code class="file docutils literal notranslate"><span class="pre">%VIRTUAL_ENV%\pip.ini</span></code></p></li>
+</ul>
+<p><strong>Site-wide</strong>:</p>
+<ul class="simple">
+<li><p>On Unix the file may be located in <code class="file docutils literal notranslate"><span class="pre">/etc/pip.conf</span></code>. Alternatively
+it may be in a “pip” subdirectory of any of the paths set in the
+environment variable <code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_DIRS</span></code> (if it exists), for example
+<code class="file docutils literal notranslate"><span class="pre">/etc/xdg/pip/pip.conf</span></code>.</p></li>
+<li><p>On macOS the file is: <code class="file docutils literal notranslate"><span class="pre">/Library/Application</span> <span class="pre">Support/pip/pip.conf</span></code></p></li>
+<li><p>On Windows XP the file is:
+<code class="file docutils literal notranslate"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\All</span> <span class="pre">Users\Application</span> <span class="pre">Data\pip\pip.ini</span></code></p></li>
+<li><p>On Windows 7 and later the file is hidden, but writeable at
+<code class="file docutils literal notranslate"><span class="pre">C:\ProgramData\pip\pip.ini</span></code></p></li>
+<li><p>Site-wide configuration is not supported on Windows Vista</p></li>
+</ul>
+<p>If multiple configuration files are found by pip then they are combined in
+the following order:</p>
+<ol class="arabic simple">
+<li><p>The site-wide file is read</p></li>
+<li><p>The per-user file is read</p></li>
+<li><p>The virtualenv-specific file is read</p></li>
+</ol>
+<p>Each file read overrides any values read from previous files, so if the
+global timeout is specified in both the site-wide file and the per-user file
+then the latter value will be used.</p>
+<p>The names of the settings are derived from the long command line option, e.g.
+if you want to use a different package index (<code class="docutils literal notranslate"><span class="pre">--index-url</span></code>) and set the
+HTTP timeout (<code class="docutils literal notranslate"><span class="pre">--default-timeout</span></code>) to 60 seconds your config file would
+look like this:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">timeout</span> <span class="o">=</span> <span class="s">60</span>
+<span class="na">index-url</span> <span class="o">=</span> <span class="s">https://download.zope.org/ppix</span>
+</pre></div>
+</div>
+<p>Each subcommand can be configured optionally in its own section so that every
+global setting with the same name will be overridden; e.g. decreasing the
+<code class="docutils literal notranslate"><span class="pre">timeout</span></code> to <code class="docutils literal notranslate"><span class="pre">10</span></code> seconds when running the <code class="docutils literal notranslate"><span class="pre">freeze</span></code>
+(<a class="reference internal" href="reference/pip_freeze.html#pip-freeze"><span class="std std-ref">pip freeze</span></a>) command and using
+<code class="docutils literal notranslate"><span class="pre">60</span></code> seconds for all other commands is possible with:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">timeout</span> <span class="o">=</span> <span class="s">60</span>
+
+<span class="k">[freeze]</span>
+<span class="na">timeout</span> <span class="o">=</span> <span class="s">10</span>
+</pre></div>
+</div>
+<p>Boolean options like <code class="docutils literal notranslate"><span class="pre">--ignore-installed</span></code> or <code class="docutils literal notranslate"><span class="pre">--no-dependencies</span></code> can be
+set like this:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[install]</span>
+<span class="na">ignore-installed</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">no-dependencies</span> <span class="o">=</span> <span class="s">yes</span>
+</pre></div>
+</div>
+<p>To enable the boolean options <code class="docutils literal notranslate"><span class="pre">--no-compile</span></code>, <code class="docutils literal notranslate"><span class="pre">--no-warn-script-location</span></code>
+and <code class="docutils literal notranslate"><span class="pre">--no-cache-dir</span></code>, falsy values have to be used:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">no-cache-dir</span> <span class="o">=</span> <span class="s">false</span>
+
+<span class="k">[install]</span>
+<span class="na">no-compile</span> <span class="o">=</span> <span class="s">no</span>
+<span class="na">no-warn-script-location</span> <span class="o">=</span> <span class="s">false</span>
+</pre></div>
+</div>
+<p>It is possible to append values to a section within a configuration file such as the pip.ini file.
+This is applicable to appending options like <code class="docutils literal notranslate"><span class="pre">--find-links</span></code> or <code class="docutils literal notranslate"><span class="pre">--trusted-host</span></code>,
+which can be written on multiple lines:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[global]</span>
+<span class="na">find-links</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    http://download.example.com</span>
+
+<span class="k">[install]</span>
+<span class="na">find-links</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    http://mirror1.example.com</span>
+<span class="s">    http://mirror2.example.com</span>
+
+<span class="na">trusted-host</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    http://mirror1.example.com</span>
+<span class="s">    http://mirror2.example.com</span>
+</pre></div>
+</div>
+<p>This enables users to add additional values in the order of entry for such command line arguments.</p>
+</div>
+<div class="section" id="environment-variables">
+<h3><a class="toc-backref" href="#id23">Environment Variables</a><a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h3>
+<p>pip’s command line options can be set with environment variables using the
+format <code class="docutils literal notranslate"><span class="pre">PIP_&lt;UPPER_LONG_NAME&gt;</span></code> . Dashes (<code class="docutils literal notranslate"><span class="pre">-</span></code>) have to be replaced with
+underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>).</p>
+<p>For example, to set the default timeout:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PIP_DEFAULT_TIMEOUT</span><span class="o">=</span><span class="mi">60</span>
+</pre></div>
+</div>
+<p>This is the same as passing the option to pip directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">timeout</span><span class="o">=</span><span class="mi">60</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For command line options which can be repeated, use a space to separate
+multiple values. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PIP_FIND_LINKS</span><span class="o">=</span><span class="s2">&quot;http://mirror1.example.com http://mirror2.example.com&quot;</span>
+</pre></div>
+</div>
+<p>is the same as calling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirror1</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span> <span class="o">--</span><span class="n">find</span><span class="o">-</span><span class="n">links</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirror2</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Environment variables set to be empty string will not be treated as false.
+Please use <code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code> or <code class="docutils literal notranslate"><span class="pre">0</span></code> instead.</p>
+</div>
+</div>
+<div class="section" id="config-precedence">
+<span id="id7"></span><h3><a class="toc-backref" href="#id24">Config Precedence</a><a class="headerlink" href="#config-precedence" title="Permalink to this headline">¶</a></h3>
+<p>Command line options have precedence over environment variables, which have
+precedence over the config file.</p>
+<p>Within the config file, command specific sections have precedence over the
+global section.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--host=foo</span></code> overrides <code class="docutils literal notranslate"><span class="pre">PIP_HOST=foo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PIP_HOST=foo</span></code> overrides a config file with <code class="docutils literal notranslate"><span class="pre">[global]</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">foo</span></code></p></li>
+<li><p>A command specific section in the config file <code class="docutils literal notranslate"><span class="pre">[&lt;command&gt;]</span> <span class="pre">host</span> <span class="pre">=</span> <span class="pre">bar</span></code>
+overrides the option with same name in the <code class="docutils literal notranslate"><span class="pre">[global]</span></code> config file section</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="command-completion">
+<h2><a class="toc-backref" href="#id25">Command Completion</a><a class="headerlink" href="#command-completion" title="Permalink to this headline">¶</a></h2>
+<p>pip comes with support for command line completion in bash, zsh and fish.</p>
+<p>To setup for bash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip completion --bash &gt;&gt; ~/.profile
+</pre></div>
+</div>
+<p>To setup for zsh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip completion --zsh &gt;&gt; ~/.zprofile
+</pre></div>
+</div>
+<p>To setup for fish:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip completion --fish &gt; ~/.config/fish/completions/pip.fish
+</pre></div>
+</div>
+<p>Alternatively, you can use the result of the <code class="docutils literal notranslate"><span class="pre">completion</span></code> command directly
+with the eval function of your shell, e.g. by adding the following to your
+startup file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="s2">&quot;`pip completion --bash`&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-from-local-packages">
+<span id="id8"></span><h2><a class="toc-backref" href="#id26">Installing from local packages</a><a class="headerlink" href="#installing-from-local-packages" title="Permalink to this headline">¶</a></h2>
+<p>In some cases, you may want to install from local packages only, with no traffic
+to PyPI.</p>
+<p>First, download the archives that fulfill your requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip download --destination-directory DIR -r requirements.txt
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">download</span></code> will look in your wheel cache first, before
+trying to download from PyPI.  If you’ve never installed your requirements
+before, you won’t have a wheel cache for those items.  In that case, if some of
+your requirements don’t come as wheels from PyPI, and you want wheels, then run
+this instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip wheel --wheel-dir DIR -r requirements.txt
+</pre></div>
+</div>
+<p>Then, to install from local only, you’ll be using <a class="reference internal" href="reference/pip_install.html#install-find-links"><span class="std std-ref">--find-links</span></a> and <a class="reference internal" href="reference/pip_install.html#install-no-index"><span class="std std-ref">--no-index</span></a> like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --no-index --find-links=DIR -r requirements.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="only-if-needed-recursive-upgrade">
+<h2><a class="toc-backref" href="#id27">“Only if needed” Recursive Upgrade</a><a class="headerlink" href="#only-if-needed-recursive-upgrade" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span></code> now has a <code class="docutils literal notranslate"><span class="pre">--upgrade-strategy</span></code> option which
+controls how pip handles upgrading of dependencies. There are 2 upgrade
+strategies supported:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eager</span></code>: upgrades all dependencies regardless of whether they still satisfy
+the new parent requirements</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">only-if-needed</span></code>: upgrades a dependency only if it does not satisfy the new
+parent requirements</p></li>
+</ul>
+<p>The default strategy is <code class="docutils literal notranslate"><span class="pre">only-if-needed</span></code>. This was changed in pip 10.0 due to
+the breaking nature of <code class="docutils literal notranslate"><span class="pre">eager</span></code> when upgrading conflicting dependencies.</p>
+<p>As an historic note, an earlier “fix” for getting the <code class="docutils literal notranslate"><span class="pre">only-if-needed</span></code>
+behaviour was:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">deps</span> <span class="n">SomePackage</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">SomePackage</span>
+</pre></div>
+</div>
+<p>A proposal for an <code class="docutils literal notranslate"><span class="pre">upgrade-all</span></code> command is being considered as a safer
+alternative to the behaviour of eager upgrading.</p>
+</div>
+<div class="section" id="user-installs">
+<h2><a class="toc-backref" href="#id28">User Installs</a><a class="headerlink" href="#user-installs" title="Permalink to this headline">¶</a></h2>
+<p>With Python 2.6 came the <a class="reference external" href="https://docs.python.org/3/install/index.html#alternate-installation-the-user-scheme">“user scheme” for installation</a>,
+which means that all Python distributions support an alternative install
+location that is specific to a user.  The default location for each OS is
+explained in the python documentation for the <a class="reference external" href="https://docs.python.org/3/library/site.html#site.USER_BASE">site.USER_BASE</a> variable.
+This mode of installation can be turned on by specifying the <a class="reference internal" href="reference/pip_install.html#install-user"><span class="std std-ref">--user</span></a> option to <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>.</p>
+<p>Moreover, the “user scheme” can be customized by setting the
+<code class="docutils literal notranslate"><span class="pre">PYTHONUSERBASE</span></code> environment variable, which updates the value of
+<code class="docutils literal notranslate"><span class="pre">site.USER_BASE</span></code>.</p>
+<p>To install “SomePackage” into an environment with site.USER_BASE customized to
+‘/myappenv’, do the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">PYTHONUSERBASE</span><span class="o">=/</span><span class="n">myappenv</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">SomePackage</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> follows four rules:</p>
+<ol class="arabic simple">
+<li><p>When globally installed packages are on the python path, and they <em>conflict</em>
+with the installation requirements, they are ignored, and <em>not</em>
+uninstalled.</p></li>
+<li><p>When globally installed packages are on the python path, and they <em>satisfy</em>
+the installation requirements, pip does nothing, and reports that
+requirement is satisfied (similar to how global packages can satisfy
+requirements when installing packages in a <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code>
+virtualenv).</p></li>
+<li><p>pip will not perform a <code class="docutils literal notranslate"><span class="pre">--user</span></code> install in a <code class="docutils literal notranslate"><span class="pre">--no-site-packages</span></code>
+virtualenv (i.e. the default kind of virtualenv), due to the user site not
+being on the python path.  The installation would be pointless.</p></li>
+<li><p>In a <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code> virtualenv, pip will not install a package
+that conflicts with a package in the virtualenv site-packages.  The --user
+installation would lack sys.path precedence and be pointless.</p></li>
+</ol>
+<p>To make the rules clearer, here are some examples:</p>
+<p>From within a <code class="docutils literal notranslate"><span class="pre">--no-site-packages</span></code> virtualenv (i.e. the default kind):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --user SomePackage
+Can not perform a &#39;--user&#39; install. User site-packages are not visible in this virtualenv.
+</pre></div>
+</div>
+<p>From within a <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code> virtualenv where <code class="docutils literal notranslate"><span class="pre">SomePackage==0.3</span></code>
+is already installed in the virtualenv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --user SomePackage==0.4
+Will not install to the user site because it will lack sys.path precedence
+</pre></div>
+</div>
+<p>From within a real python, where <code class="docutils literal notranslate"><span class="pre">SomePackage</span></code> is <em>not</em> installed globally:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --user SomePackage
+[...]
+Successfully installed SomePackage
+</pre></div>
+</div>
+<p>From within a real python, where <code class="docutils literal notranslate"><span class="pre">SomePackage</span></code> <em>is</em> installed globally, but
+is <em>not</em> the latest version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --user SomePackage
+[...]
+Requirement already satisfied (use --upgrade to upgrade)
+
+$ pip install --user --upgrade SomePackage
+[...]
+Successfully installed SomePackage
+</pre></div>
+</div>
+<p>From within a real python, where <code class="docutils literal notranslate"><span class="pre">SomePackage</span></code> <em>is</em> installed globally, and
+is the latest version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install --user SomePackage
+[...]
+Requirement already satisfied (use --upgrade to upgrade)
+
+$ pip install --user --upgrade SomePackage
+[...]
+Requirement already up-to-date: SomePackage
+
+# force the install
+$ pip install --user --ignore-installed SomePackage
+[...]
+Successfully installed SomePackage
+</pre></div>
+</div>
+</div>
+<div class="section" id="ensuring-repeatability">
+<span id="repeatability"></span><h2><a class="toc-backref" href="#id29">Ensuring Repeatability</a><a class="headerlink" href="#ensuring-repeatability" title="Permalink to this headline">¶</a></h2>
+<p>pip can achieve various levels of repeatability:</p>
+<div class="section" id="pinned-version-numbers">
+<h3><a class="toc-backref" href="#id30">Pinned Version Numbers</a><a class="headerlink" href="#pinned-version-numbers" title="Permalink to this headline">¶</a></h3>
+<p>Pinning the versions of your dependencies in the requirements file
+protects you from bugs or incompatibilities in newly released versions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SomePackage</span> <span class="o">==</span> <span class="mf">1.2</span><span class="o">.</span><span class="mi">3</span>
+<span class="n">DependencyOfSomePackage</span> <span class="o">==</span> <span class="mf">4.5</span><span class="o">.</span><span class="mi">6</span>
+</pre></div>
+</div>
+<p>Using <a class="reference internal" href="reference/pip_freeze.html#pip-freeze"><span class="std std-ref">pip freeze</span></a> to generate the requirements file will ensure that not
+only the top-level dependencies are included but their sub-dependencies as
+well, and so on. Perform the installation using <a class="reference internal" href="reference/pip_install.html#install-no-deps"><span class="std std-ref">--no-deps</span></a> for an extra dose of insurance against installing
+anything not explicitly listed.</p>
+<p>This strategy is easy to implement and works across OSes and architectures.
+However, it trusts PyPI and the certificate authority chain. It
+also relies on indices and find-links locations not allowing
+packages to change without a version increase. (PyPI does protect
+against this.)</p>
+</div>
+<div class="section" id="hash-checking-mode">
+<h3><a class="toc-backref" href="#id31">Hash-checking Mode</a><a class="headerlink" href="#hash-checking-mode" title="Permalink to this headline">¶</a></h3>
+<p>Beyond pinning version numbers, you can add hashes against which to verify
+downloaded packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FooProject</span> <span class="o">==</span> <span class="mf">1.2</span> <span class="o">--</span><span class="nb">hash</span><span class="o">=</span><span class="n">sha256</span><span class="p">:</span><span class="mi">2</span><span class="n">cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</span>
+</pre></div>
+</div>
+<p>This protects against a compromise of PyPI or the HTTPS
+certificate chain. It also guards against a package changing
+without its version number changing (on indexes that allow this).
+This approach is a good fit for automated server deployments.</p>
+<p>Hash-checking mode is a labor-saving alternative to running a private index
+server containing approved packages: it removes the need to upload packages,
+maintain ACLs, and keep an audit trail (which a VCS gives you on the
+requirements file for free). It can also substitute for a vendor library,
+providing easier upgrades and less VCS noise. It does not, of course,
+provide the availability benefits of a private index or a vendor library.</p>
+<p>For more, see
+<a class="reference internal" href="reference/pip_install.html#hash-checking-mode"><span class="std std-ref">pip install’s discussion of hash-checking mode</span></a>.</p>
+</div>
+<div class="section" id="installation-bundles">
+<span id="installation-bundle"></span><h3><a class="toc-backref" href="#id32">Installation Bundles</a><a class="headerlink" href="#installation-bundles" title="Permalink to this headline">¶</a></h3>
+<p>Using <a class="reference internal" href="reference/pip_wheel.html#pip-wheel"><span class="std std-ref">pip wheel</span></a>, you can bundle up all of a project’s dependencies, with
+any compilation done, into a single archive. This allows installation when
+index servers are unavailable and avoids time-consuming recompilation. Create
+an archive like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tempdir=$(mktemp -d /tmp/wheelhouse-XXXXX)
+$ pip wheel -r requirements.txt --wheel-dir=$tempdir
+$ cwd=`pwd`
+$ (cd &quot;$tempdir&quot;; tar -cjvf &quot;$cwd/bundled.tar.bz2&quot; *)
+</pre></div>
+</div>
+<p>You can then install from the archive like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tempdir=$(mktemp -d /tmp/wheelhouse-XXXXX)
+$ (cd $tempdir; tar -xvf /path/to/bundled.tar.bz2)
+$ pip install --force-reinstall --ignore-installed --upgrade --no-index --no-deps $tempdir/*
+</pre></div>
+</div>
+<p>Note that compiled packages are typically OS- and architecture-specific, so
+these archives are not necessarily portable across machines.</p>
+<p>Hash-checking mode can be used along with this method to ensure that future
+archives are built with identical packages.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Finally, beware of the <code class="docutils literal notranslate"><span class="pre">setup_requires</span></code> keyword arg in <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code>.
+The (rare) packages that use it will cause those dependencies to be
+downloaded by setuptools directly, skipping pip’s protections. If you need
+to use such a package, see <a class="reference internal" href="reference/pip_install.html#controlling-setup-requires"><span class="std std-ref">Controlling
+setup_requires</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="fixing-conflicting-dependencies">
+<span id="using-pip-from-your-program"></span><h2><a class="toc-backref" href="#id33">Fixing conflicting dependencies</a><a class="headerlink" href="#fixing-conflicting-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of this section of documentation is to provide practical suggestions to
+pip users who encounter an error where pip cannot install their
+specified packages due to conflicting dependencies (a
+<code class="docutils literal notranslate"><span class="pre">ResolutionImpossible</span></code> error).</p>
+<p>This documentation is specific to the new resolver, which you can use
+with the flag <code class="docutils literal notranslate"><span class="pre">--unstable-feature=resolver</span></code>.</p>
+<div class="section" id="understanding-your-error-message">
+<h3><a class="toc-backref" href="#id34">Understanding your error message</a><a class="headerlink" href="#understanding-your-error-message" title="Permalink to this headline">¶</a></h3>
+<p>When you get a <code class="docutils literal notranslate"><span class="pre">ResolutionImpossible</span></code> error, you might see something
+like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">package_coffee</span><span class="o">==</span><span class="mf">0.44</span><span class="o">.</span><span class="mi">1</span> <span class="n">package_tea</span><span class="o">==</span><span class="mf">4.3</span><span class="o">.</span><span class="mi">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Due</span> <span class="n">to</span> <span class="n">conflicting</span> <span class="n">dependencies</span> <span class="n">pip</span> <span class="n">cannot</span> <span class="n">install</span> <span class="n">package_coffee</span> <span class="ow">and</span>
+<span class="n">package_tea</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">package_coffee</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">package_water</span><span class="o">&lt;</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span><span class="o">&gt;=</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span>
+<span class="o">-</span> <span class="n">package_tea</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">package_water</span><span class="o">==</span><span class="mf">2.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>In this example, pip cannot install the packages you have requested,
+because they each depend on different versions of the same package
+(<code class="docutils literal notranslate"><span class="pre">package_water</span></code>):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">package_coffee</span></code> version <code class="docutils literal notranslate"><span class="pre">0.44.1</span></code> depends on a version of
+<code class="docutils literal notranslate"><span class="pre">package_water</span></code> that is less than <code class="docutils literal notranslate"><span class="pre">3.0.0</span></code> but greater than or equal to
+<code class="docutils literal notranslate"><span class="pre">2.4.2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_tea</span></code> version <code class="docutils literal notranslate"><span class="pre">4.3.0</span></code> depends on version <code class="docutils literal notranslate"><span class="pre">2.3.1</span></code> of
+<code class="docutils literal notranslate"><span class="pre">package_water</span></code></p></li>
+</ul>
+<p>Sometimes these messages are straightforward to read, because they use
+commonly understood comparison operators to specify the required version
+(e.g. <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>).</p>
+<p>However, Python packaging also supports some more complex ways for
+specifying package versions (e.g. <code class="docutils literal notranslate"><span class="pre">~=</span></code> or <code class="docutils literal notranslate"><span class="pre">*</span></code>):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+<td><p>Any version greater than the specified version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&gt;3.1</span></code>: any
+version greater than 3.1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td><p>Any version less than the specified version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;3.1</span></code>: any version
+less than <code class="docutils literal notranslate"><span class="pre">3.1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></td>
+<td><p>Any version less than or equal to the specified version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;=3.1</span></code>:
+any version less than or equal to <code class="docutils literal notranslate"><span class="pre">3.1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
+<td><p>Any version greater than or equal to the specified
+version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&gt;=3.1</span></code>: version <code class="docutils literal notranslate"><span class="pre">3.1</span></code> and greater</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p>Exactly the specified version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">==3.1</span></code>: only version <code class="docutils literal notranslate"><span class="pre">3.1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!=</span></code></p></td>
+<td><p>Any version not equal to the specified version</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">!=3.1</span></code>: any
+version other than <code class="docutils literal notranslate"><span class="pre">3.1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">~=</span></code></p></td>
+<td><p>Any compatible release. Compatible releases are releases that are
+within the same major or minor version, assuming the package author is using
+semantic versioning.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">~=3.1</span></code>: version <code class="docutils literal notranslate"><span class="pre">3.1</span></code> or later, but not version
+<code class="docutils literal notranslate"><span class="pre">4.0</span></code> or later. <code class="docutils literal notranslate"><span class="pre">~=3.1.2</span></code>: version <code class="docutils literal notranslate"><span class="pre">3.1.2</span></code> or later, but not
+version <code class="docutils literal notranslate"><span class="pre">3.2.0</span></code> or later.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Can be used at the end of a version number to represent “all”</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">3.</span>
+<span class="pre">1.*</span></code>: any version that starts with <code class="docutils literal notranslate"><span class="pre">3.1</span></code>. Equivalent to <code class="docutils literal notranslate"><span class="pre">~=3.1.0</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The detailed specification of supported comparison operators can be
+found in <span class="target" id="index-2"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0440"><strong>PEP 440</strong></a>.</p>
+</div>
+<div class="section" id="possible-solutions">
+<h3><a class="toc-backref" href="#id35">Possible solutions</a><a class="headerlink" href="#possible-solutions" title="Permalink to this headline">¶</a></h3>
+<p>The solution to your error will depend on your individual use case. Here
+are some things to try:</p>
+<div class="section" id="audit-your-top-level-requirements">
+<h4><a class="toc-backref" href="#id36">1. Audit your top level requirements</a><a class="headerlink" href="#audit-your-top-level-requirements" title="Permalink to this headline">¶</a></h4>
+<p>As a first step it is useful to audit your project and remove any
+unnecessary or out of date requirements (e.g. from your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> files). Removing these can significantly reduce the
+complexity of your dependency tree, thereby reducing opportunities for
+conflicts to occur.</p>
+</div>
+<div class="section" id="loosen-your-top-level-requirements">
+<h4><a class="toc-backref" href="#id37">2. Loosen your top level requirements</a><a class="headerlink" href="#loosen-your-top-level-requirements" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes the packages that you have asked pip to install are
+incompatible because you have been too strict when you specified the
+package version.</p>
+<p>In our first example both <code class="docutils literal notranslate"><span class="pre">package_coffee</span></code> and <code class="docutils literal notranslate"><span class="pre">package_tea</span></code> have been
+<em>pinned</em> to use specific versions
+(<code class="docutils literal notranslate"><span class="pre">package_coffee==0.44.1b0</span> <span class="pre">package_tea==4.3.0</span></code>).</p>
+<p>To find a version of both <code class="docutils literal notranslate"><span class="pre">package_coffee</span></code> and <code class="docutils literal notranslate"><span class="pre">package_tea</span></code> that depend on
+the same version of <code class="docutils literal notranslate"><span class="pre">package_water</span></code>, you might consider:</p>
+<ul class="simple">
+<li><p>Loosening the range of packages that you are prepared to install
+(e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;package_coffee&gt;0.44.*&quot;</span> <span class="pre">&quot;package_tea&gt;4.0.0&quot;</span></code>)</p></li>
+<li><p>Asking pip to install <em>any</em> version of <code class="docutils literal notranslate"><span class="pre">package_coffee</span></code> and <code class="docutils literal notranslate"><span class="pre">package_tea</span></code>
+by removing the version specifiers altogether (e.g.
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">package_coffee</span> <span class="pre">package_tea</span></code>)</p></li>
+</ul>
+<p>In the second case, pip will automatically find a version of both
+<code class="docutils literal notranslate"><span class="pre">package_coffee</span></code> and <code class="docutils literal notranslate"><span class="pre">package_tea</span></code> that depend on the same version of
+<code class="docutils literal notranslate"><span class="pre">package_water</span></code>, installing:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">package_coffee</span> <span class="pre">0.46.0b0</span></code>, which depends on <code class="docutils literal notranslate"><span class="pre">package_water</span> <span class="pre">2.6.1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_tea</span> <span class="pre">4.3.0</span></code> which <em>also</em> depends on <code class="docutils literal notranslate"><span class="pre">package_water</span> <span class="pre">2.6.1</span></code></p></li>
+</ul>
+<p>If you want to prioritize one package over another, you can add version
+specifiers to <em>only</em> the more important package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">package_coffee</span><span class="o">==</span><span class="mf">0.44</span><span class="o">.</span><span class="mi">1</span><span class="n">b0</span> <span class="n">package_tea</span>
+</pre></div>
+</div>
+<p>This will result in:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">package_coffee</span> <span class="pre">0.44.1b0</span></code>, which depends on <code class="docutils literal notranslate"><span class="pre">package_water</span> <span class="pre">2.6.1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_tea</span> <span class="pre">4.1.3</span></code> which also depends on <code class="docutils literal notranslate"><span class="pre">package_water</span> <span class="pre">2.6.1</span></code></p></li>
+</ul>
+<p>Now that you have resolved the issue, you can repin the compatible
+package versions as required.</p>
+</div>
+<div class="section" id="loosen-the-requirements-of-your-dependencies">
+<h4><a class="toc-backref" href="#id38">3. Loosen the requirements of your dependencies</a><a class="headerlink" href="#loosen-the-requirements-of-your-dependencies" title="Permalink to this headline">¶</a></h4>
+<p>Assuming that you cannot resolve the conflict by loosening the version
+of the package you require (as above), you can try to fix the issue on
+your <em>dependency</em> by:</p>
+<ul class="simple">
+<li><p>Requesting that the package maintainers loosen <em>their</em> dependencies</p></li>
+<li><p>Forking the package and loosening the dependencies yourself</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you choose to fork the package yourself, you are <em>opting out</em> of
+any support provided by the package maintainers. Proceed at your own risk!</p>
+</div>
+</div>
+<div class="section" id="all-requirements-are-loose-but-a-solution-does-not-exist">
+<h4><a class="toc-backref" href="#id39">4. All requirements are loose, but a solution does not exist</a><a class="headerlink" href="#all-requirements-are-loose-but-a-solution-does-not-exist" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes it’s simply impossible to find a combination of package
+versions that do not conflict. Welcome to <a class="reference external" href="https://en.wikipedia.org/wiki/Dependency_hell&gt;">dependency hell</a>.</p>
+<p>In this situation, you could consider:</p>
+<ul class="simple">
+<li><p>Using an alternative package, if that is acceptable for your project.
+See <a class="reference external" href="https://python.libhunt.com/">Awesome Python</a> for similar packages.</p></li>
+<li><p>Refactoring your project to reduce the number of dependencies (for
+example, by breaking up a monolithic code base into smaller pieces)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="getting-help">
+<h3><a class="toc-backref" href="#id40">Getting help</a><a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h3>
+<p>If none of the suggestions above work for you, we recommend that you ask
+for help on:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://discuss.python.org/c/users/7">Python user Discourse</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/community/forums/">Python user forums</a></p></li>
+<li><p><a class="reference external" href="https://pythondev.slack.com/">Python developers Slack channel</a></p></li>
+<li><p><a class="reference external" href="https://www.python.org/community/irc/">Python IRC</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/tagged/python">Stack Overflow</a></p></li>
+</ul>
+<p>See <a class="reference external" href="https://stackoverflow.com/help/how-to-ask">“How do I ask a good question?”</a> for tips on asking for help.</p>
+<p>Unfortunately, <strong>the pip team cannot provide support for individual
+dependency conflict errors</strong>. Please <em>only</em> open a ticket on the <a class="reference external" href="https://github.com/pypa/pip/issues">pip
+issue tracker</a> if you believe that your problem has exposed a bug in pip.</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id41">Using pip from your program</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>As noted previously, pip is a command line program. While it is implemented in
+Python, and so is available from your Python code via <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pip</span></code>, you must
+not use pip’s internal APIs in this way. There are a number of reasons for this:</p>
+<ol class="arabic simple">
+<li><p>The pip code assumes that is in sole control of the global state of the
+program.
+pip manages things like the logging system configuration, or the values of
+the standard IO streams, without considering the possibility that user code
+might be affected.</p></li>
+<li><p>pip’s code is <em>not</em> thread safe. If you were to run pip in a thread, there
+is no guarantee that either your code or pip’s would work as you expect.</p></li>
+<li><p>pip assumes that once it has finished its work, the process will terminate.
+It doesn’t need to handle the possibility that other code will continue to
+run after that point, so (for example) calling pip twice in the same process
+is likely to have issues.</p></li>
+</ol>
+<p>This does not mean that the pip developers are opposed in principle to the idea
+that pip could be used as a library - it’s just that this isn’t how it was
+written, and it would be a lot of work to redesign the internals for use as a
+library, handling all of the above issues, and designing a usable, robust and
+stable API that we could guarantee would remain available across multiple
+releases of pip. And we simply don’t currently have the resources to even
+consider such a task.</p>
+<p>What this means in practice is that everything inside of pip is considered an
+implementation detail. Even the fact that the import name is <code class="docutils literal notranslate"><span class="pre">pip</span></code> is subject
+to change without notice. While we do try not to break things as much as
+possible, all the internal APIs can change at any time, for any reason. It also
+means that we generally <em>won’t</em> fix issues that are a result of using pip in an
+unsupported way.</p>
+<p>It should also be noted that installing packages into <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> in a running
+Python process is something that should only be done with care. The import
+system caches certain data, and installing new packages while a program is
+running may not always behave as expected. In practice, there is rarely an
+issue, but it is something to be aware of.</p>
+<p>Having said all of the above, it is worth covering the options available if you
+decide that you do want to run pip from within your program. The most reliable
+approach, and the one that is fully supported, is to run pip in a subprocess.
+This is easily done using the standard <code class="docutils literal notranslate"><span class="pre">subprocess</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;pip&#39;</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;my_package&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If you want to process the output further, use one of the other APIs in the module.
+We are using <a class="reference external" href="https://pip.pypa.io/en/latest/reference/pip_freeze/">freeze</a> here which outputs installed packages in requirements format.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reqs</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;pip&#39;</span><span class="p">,</span> <span class="s1">&#39;freeze&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>If you don’t want to use pip’s command line functionality, but are rather
+trying to implement code that works with Python packages, their metadata, or
+PyPI, then you should consider other, supported, packages that offer this type
+of ability. Some examples that you could consider include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">packaging</span></code> - Utilities to work with standard package metadata (versions,
+requirements, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setuptools</span></code> (specifically <code class="docutils literal notranslate"><span class="pre">pkg_resources</span></code>) - Functions for querying what
+packages the user has installed on their system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">distlib</span></code> - Packaging and distribution utilities (including functions for
+interacting with PyPI).</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-pip">Running pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-authentication-credentials">Basic Authentication Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-proxy-server">Using a Proxy Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements-files">Requirements Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constraints-files">Constraints Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-wheels">Installing from Wheels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uninstalling-packages">Uninstalling Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listing-packages">Listing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#searching-for-packages">Searching for Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#config-file">Config file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-precedence">Config Precedence</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#command-completion">Command Completion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-local-packages">Installing from local packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#only-if-needed-recursive-upgrade">“Only if needed” Recursive Upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-installs">User Installs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ensuring-repeatability">Ensuring Repeatability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pinned-version-numbers">Pinned Version Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hash-checking-mode">Hash-checking Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation-bundles">Installation Bundles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fixing-conflicting-dependencies">Fixing conflicting dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#understanding-your-error-message">Understanding your error message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-solutions">Possible solutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-help">Getting help</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Using pip from your program</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/index.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installing.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference/index.html"
+                        title="next chapter">Reference Guide</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="reference/index.html" title="Reference Guide"
+             >next</a></li>
+        <li class="right" >
+          <a href="installing.html" title="Installation"
+             >previous</a> |</li>
+    <li><img src="_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

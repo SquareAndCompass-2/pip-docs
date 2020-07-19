@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Issue Triage &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Architecture of pip’s internals" href="architecture/index.html" />
+    <link rel="prev" title="Continuous Integration" href="ci.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="architecture/index.html" title="Architecture of pip’s internals"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ci.html" title="Continuous Integration"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the documentation is currently being written. pip
+developers welcome your help to complete this documentation. If
+you’re interested in helping out, please let us know in the
+<a class="reference external" href="https://github.com/pypa/pip/issues/6583">tracking issue</a>, or
+just submit a pull request and mention it in that tracking issue.</p>
+</div>
+<div class="section" id="issue-triage">
+<h1>Issue Triage<a class="headerlink" href="#issue-triage" title="Permalink to this headline">¶</a></h1>
+<p>This serves as an introduction to issue tracking in pip as well as
+how to help triage reported issues.</p>
+<div class="section" id="issue-tracker">
+<h2>Issue Tracker<a class="headerlink" href="#issue-tracker" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/pypa/pip/issues">pip issue tracker</a> is hosted on
+GitHub alongside the project.</p>
+<p>Currently, the issue tracker is used for bugs, feature requests, and general
+user support.</p>
+<p>In the pip issue tracker, we make use of labels and milestones to organize and
+track work.</p>
+<div class="section" id="labels">
+<h3>Labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h3>
+<p>Issue labels are used to:</p>
+<ol class="arabic simple">
+<li><p>Categorize issues</p></li>
+<li><p>Provide status information for contributors and reporters</p></li>
+<li><p>Help contributors find tasks to work on</p></li>
+</ol>
+<p>The current set of labels are divided into several categories identified by
+prefix:</p>
+<dl class="simple">
+<dt><strong>C - Category</strong></dt><dd><p>which area of <code class="docutils literal notranslate"><span class="pre">pip</span></code> functionality a feature request or issue is related to</p>
+</dd>
+</dl>
+<p><strong>K - Kind</strong></p>
+<dl class="simple">
+<dt><strong>O - Operating System</strong></dt><dd><p>for issues that are OS-specific</p>
+</dd>
+<dt><strong>P - Project/Platform</strong></dt><dd><p>related to something external to <code class="docutils literal notranslate"><span class="pre">pip</span></code></p>
+</dd>
+<dt><strong>R - Resolution</strong></dt><dd><p>no more discussion is really needed, an action has been identified and the
+issue is waiting or closed</p>
+</dd>
+<dt><strong>S - State</strong></dt><dd><p>for some automatic labels and other indicators that work is needed</p>
+</dd>
+<dt><strong>type</strong></dt><dd><p>the role or flavor of an issue</p>
+</dd>
+</dl>
+<p>The specific labels falling into each category have a description that can be
+seen on the <a class="reference external" href="https://github.com/pypa/pip/labels">Labels</a> page.</p>
+<p>In addition, there are several standalone labels:</p>
+<dl class="simple">
+<dt><strong>good first issue</strong></dt><dd><p>this label marks an issue as beginner-friendly and shows up in banners that
+GitHub displays for first-time visitors to the repository</p>
+</dd>
+<dt><strong>triage</strong></dt><dd><p>default label given to issues when they are created</p>
+</dd>
+<dt><strong>trivial</strong></dt><dd><p>special label for pull requests that removes the
+<a class="reference internal" href="contributing.html#choosing-news-entry-type"><span class="std std-ref">news file requirement</span></a></p>
+</dd>
+<dt><strong>needs rebase or merge</strong></dt><dd><p>this is a special label used by BrownTruck to mark PRs that have merge
+conflicts</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="automation">
+<h3>Automation<a class="headerlink" href="#automation" title="Permalink to this headline">¶</a></h3>
+<p>There are several helpers to manage issues and pull requests.</p>
+<p>Issues created on the issue tracker are automatically given the
+<code class="docutils literal notranslate"><span class="pre">triage</span></code> label by the
+<a class="reference external" href="https://github.com/apps/triage-new-issues">triage-new-issues</a>
+bot. The label is automatically removed when another label is added.</p>
+<p>When an issue needs feedback from the author we can label it with
+<code class="docutils literal notranslate"><span class="pre">S:</span> <span class="pre">awaiting</span> <span class="pre">response</span></code>. When the author responds, the
+<a class="reference external" href="https://github.com/apps/no-response">no-response</a> bot removes the label.</p>
+<p>After an issue has been closed for 30 days, the
+<a class="reference external" href="https://github.com/apps/lock">lock</a> bot locks the issue and adds the
+<code class="docutils literal notranslate"><span class="pre">S:</span> <span class="pre">auto-locked</span></code> label. This allows us to avoid monitoring existing closed
+issues, but unfortunately prevents and references to issues from showing up as
+links on the closed issue.</p>
+</div>
+</div>
+<div class="section" id="triage-issues">
+<h2>Triage Issues<a class="headerlink" href="#triage-issues" title="Permalink to this headline">¶</a></h2>
+<p>Users can make issues for a number of reasons:</p>
+<ol class="arabic simple">
+<li><p>Suggestions about pip features that could be added or improved</p></li>
+<li><p>Problems using pip</p></li>
+<li><p>Concerns about pip usability</p></li>
+<li><p>General packaging problems to be solved with pip</p></li>
+<li><p>Problems installing or using Python packages</p></li>
+<li><p>Problems managing virtual environments</p></li>
+<li><p>Problems managing Python installations</p></li>
+</ol>
+<p>To triage issues means to identify what kind of issue is happening and</p>
+<ul class="simple">
+<li><p>confirm bugs</p></li>
+<li><p>provide support</p></li>
+<li><p>discuss and design around the uses of the tool</p></li>
+</ul>
+<p>Specifically, to address an issue:</p>
+<ol class="arabic simple">
+<li><p>Read issue title</p></li>
+<li><p>Scan issue description</p></li>
+<li><p>Ask questions</p></li>
+<li><p>If time is available, try to reproduce</p></li>
+<li><p>Search for or remember related issues and link to them</p></li>
+<li><p>Identify an appropriate area of concern (if applicable)</p></li>
+</ol>
+<p>Keep in mind that all communication is happening with other people and
+should be done with respect per the
+<a class="reference external" href="https://www.pypa.io/en/latest/code-of-conduct/">Code of Conduct</a>.</p>
+<p>The lifecycle of an issue (bug or support) generally looks like:</p>
+<ol class="arabic simple">
+<li><p>waiting for triage (marked with label <code class="docutils literal notranslate"><span class="pre">triage</span></code>)</p></li>
+<li><p>confirming issue - some discussion with the user, gathering
+details, trying to reproduce the issue (may be marked with a specific
+category, <code class="docutils literal notranslate"><span class="pre">S:</span> <span class="pre">awaiting-respose</span></code>, <code class="docutils literal notranslate"><span class="pre">S:</span> <span class="pre">discussion-needed</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">S:</span> <span class="pre">need-repro</span></code>)</p></li>
+<li><p>confirmed - the issue is pretty consistently reproducible in a
+straightforward way, or a mechanism that could be causing the issue has been
+identified</p></li>
+<li><p>awaiting fix - the fix is identified and no real discussion on the issue
+is needed, should be marked <code class="docutils literal notranslate"><span class="pre">R:</span> <span class="pre">awaiting</span> <span class="pre">PR</span></code></p></li>
+<li><p>closed - can be for several reasons</p>
+<ul class="simple">
+<li><p>fixed</p></li>
+<li><p>could not be reproduced, no more details could be obtained, and no
+progress can be made</p></li>
+<li><p>actual issue was with another project or related to system
+configuration and pip cannot (or will not) be adapted for it</p></li>
+</ul>
+</li>
+</ol>
+<div class="section" id="requesting-information">
+<h3>Requesting information<a class="headerlink" href="#requesting-information" title="Permalink to this headline">¶</a></h3>
+<p>Requesting more information to better understand the context and environment
+that led to the issue. Examples of specific information that may be useful
+depending on the situation:</p>
+<ul class="simple">
+<li><p>pip debug: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">debug</span></code></p></li>
+<li><p>pip version: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">-V</span></code></p></li>
+<li><p>Python version: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-VV</span></code></p></li>
+<li><p>Python path: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">'import</span> <span class="pre">sys;</span> <span class="pre">print(sys.executable)'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>: Unix: <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code>; Windows: <code class="docutils literal notranslate"><span class="pre">where</span> <span class="pre">python</span></code></p></li>
+<li><p>Python as resolved by the shell: <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">python</span></code></p></li>
+<li><p>Origin of pip (get-pip.py, OS-level package manager, ensurepip, manual
+installation)</p></li>
+<li><p>Using a virtual environment (with <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code>?)</p></li>
+<li><p>Using a conda environment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable</p></li>
+<li><p>Network situation (e.g. airgapped environment, firewalls)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose</span></code> output of a failing command</p></li>
+<li><p>(Unix) <code class="docutils literal notranslate"><span class="pre">strace</span></code> output from a failing command (be careful not to output
+into the same directory as a package that’s being installed, otherwise pip
+will loop forever copying the log file…)</p></li>
+<li><p>(Windows)
+<a class="reference external" href="https://docs.microsoft.com/en-us/sysinternals/downloads/procmon">procmon</a>
+output during a failing command
+(<a class="reference external" href="https://github.com/pypa/pip/issues/6814#issuecomment-516611389">example request</a>)</p></li>
+<li><p>Listing of files relevant to the issue (e.g. <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">venv/lib/pythonX.Y/problem-package.dist-info/</span></code>)</p></li>
+<li><p>whether the unexpected behavior ever worked as expected - if so then what
+were the details of the setup (same information as above)</p></li>
+</ul>
+<p>Generally, information is good to request if it can help confirm or rule out
+possible sources of error. We shouldn’t request information that does not
+improve our understanding of the situation.</p>
+</div>
+<div class="section" id="reproducing-issues">
+<h3>Reproducing issues<a class="headerlink" href="#reproducing-issues" title="Permalink to this headline">¶</a></h3>
+<p>Whenever an issue happens and the cause isn’t obvious, it is important
+that we be able to reproduce it independently. This serves several purposes:</p>
+<ol class="arabic simple">
+<li><p>If it is a pip bug, then any fix will need tests - a good reproducer
+is most of the way towards that.</p></li>
+<li><p>If it is not reproducible using the provided instructions, that helps
+rule out a lot of possible causes.</p></li>
+<li><p>A clear set of instructions is an easy way to get on the same page as
+someone reporting an issue.</p></li>
+</ol>
+<p>The best way to reproduce an issue is with a script.</p>
+<p>A script can be copied into a file and executed, whereas shell output
+has to be manually copied a line at a time.</p>
+<p>Scripts to reproduce issues should be:</p>
+<ul class="simple">
+<li><p>portable (few/no assumptions about the system, other that it being Unix or Windows as applicable)</p></li>
+<li><p>non-destructive</p></li>
+<li><p>convenient</p></li>
+<li><p>require little/no setup on the part of the runner</p></li>
+</ul>
+<p>Examples:</p>
+<ul class="simple">
+<li><p>creating and installing multiple wheels with different versions
+(<a class="reference external" href="https://github.com/pypa/pip/issues/4331#issuecomment-520156471">link</a>)</p></li>
+<li><p>using a small web server for authentication errors
+(<a class="reference external" href="https://github.com/pypa/pip/issues/2920#issuecomment-508953118">link</a>)</p></li>
+<li><p>using docker to test system or global configuration-related issues
+(<a class="reference external" href="https://github.com/pypa/pip/issues/5533#issuecomment-520159896">link</a>)</p></li>
+<li><p>using docker to test special filesystem permission/configurations
+(<a class="reference external" href="https://github.com/pypa/pip/issues/6364#issuecomment-507074729">link</a>)</p></li>
+<li><p>using docker for global installation with get-pip
+(<a class="reference external" href="https://github.com/pypa/pip/issues/6498#issuecomment-513501112">link</a>)</p></li>
+<li><p>get-pip on system with no <code class="docutils literal notranslate"><span class="pre">/usr/lib64</span></code>
+(<a class="reference external" href="https://github.com/pypa/pip/issues/5379#issuecomment-515270576">link</a>)</p></li>
+<li><p>reproducing with <code class="docutils literal notranslate"><span class="pre">pip</span></code> from master branch
+(<a class="reference external" href="https://github.com/pypa/pip/issues/6707#issue-467770959">link</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="reaching-resolution">
+<h3>Reaching resolution<a class="headerlink" href="#reaching-resolution" title="Permalink to this headline">¶</a></h3>
+<p>Some user support questions are more related to system configuration than pip.
+It’s important to treat these issues with the same care and attention as
+others, specifically:</p>
+<ol class="arabic simple">
+<li><p>Unless the issue is very old and the user doesn’t seem active, wait for
+confirmation before closing the issue</p></li>
+<li><p>Direct the user to the most appropriate forum for their questions:</p>
+<ul class="simple">
+<li><p>For Ubuntu, <a class="reference external" href="https://askubuntu.com/">askubuntu</a></p></li>
+<li><p>For Other linuxes/unixes, <a class="reference external" href="https://serverfault.com/">serverfault</a></p></li>
+<li><p>For network connectivity issues,
+<a class="reference external" href="https://serverfault.com/">serverfault</a></p></li>
+</ul>
+</li>
+<li><p>Just because a user support question is best solved using some other forum
+doesn’t mean that we can’t make things easier. Try to extract and
+understand from the user query how things could have been made easier for
+them or you, for example with better warning or error messages. If an issue
+does not exist covering that case then create one. If an issue does exist then
+make sure to reference that issue before closing this one.</p></li>
+<li><p>A user may be having trouble installing a package, where the package
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or build-backend configuration is non-trivial. In these cases we
+can help to troubleshoot but the best advice is going to be to direct them
+to the support channels for the related projects.</p></li>
+<li><p>Do not be hasty to assume it is one cause or another. What looks like
+someone else’s problem may still be an issue in pip or at least something
+that could be improved.</p></li>
+<li><p>For general discussion on Python packaging:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/pypa/packaging-problems">pypa/packaging</a></p></li>
+<li><p><a class="reference external" href="https://discuss.python.org/c/packaging">discuss.python.org/packaging</a></p></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="closing-issues">
+<h3>Closing issues<a class="headerlink" href="#closing-issues" title="Permalink to this headline">¶</a></h3>
+<p>An issue may be considered resolved and closed when:</p>
+<ul>
+<li><p>for each possible improvement or problem represented in the issue
+discussion:</p>
+<blockquote>
+<div><ul>
+<li><p>Consensus has been reached on a specific action and the actions
+appear to be external to the project, with no follow up needed
+in the project afterwards.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>PEP updates (with a corresponding issue in
+<a class="reference external" href="https://github.com/python/peps">python/peps</a>)</p></li>
+<li><p>already tracked by another issue</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>A project-specific issue has been identified and the issue no
+longer occurs as of the latest commit on the master branch.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>An enhancement or feature request no longer has a proponent and the maintainers
+don’t think it’s worth keeping open.</p></li>
+<li><p>An issue has been identified as a duplicate, and it is clearly a duplicate (i.e. the
+original report was very good and points directly to the issue)</p></li>
+<li><p>The issue has been fixed, and can be independently validated as no longer being an
+issue. If this is with code then the specific change/PR that led to it should be
+identified and posted for tracking.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="common-issues">
+<h2>Common issues<a class="headerlink" href="#common-issues" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>network-related issues - any issue involving retries, address lookup, or
+anything like that are typically network issues.</p></li>
+<li><p>issues related to having multiple Python versions, or an OS package
+manager-managed pip/python installation (specifically with Debian/Ubuntu).
+These typically present themselves as:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Not being able to find installed packages</p></li>
+<li><p>basic libraries not able to be found, fundamental OS components missing</p></li>
+<li><p>In these situations you will want to make sure that we know how they got
+their Python and pip. Knowing the relevant package manager commands can
+help, e.g. <code class="docutils literal notranslate"><span class="pre">dpkg</span> <span class="pre">-S</span></code>.</p></li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Issue Triage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#issue-tracker">Issue Tracker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triage-issues">Triage Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ci.html"
+                        title="previous chapter">Continuous Integration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="architecture/index.html"
+                        title="next chapter">Architecture of pip’s internals</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="architecture/index.html" title="Architecture of pip’s internals"
+             >next</a></li>
+        <li class="right" >
+          <a href="ci.html" title="Continuous Integration"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Development</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>

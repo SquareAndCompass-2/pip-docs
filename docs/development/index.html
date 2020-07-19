@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Development &#8212; pip 20.2.dev1 documentation</title>
+    <link rel="stylesheet" href="../_static/pypa.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/contentui.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/contentui.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="next" title="Getting Started" href="getting-started.html" />
+    <link rel="prev" title="pip debug" href="../reference/pip_debug.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="getting-started.html" title="Getting Started"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../reference/pip_debug.html" title="pip debug"
+             accesskey="P">previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>pip is a volunteer maintained open source project and we welcome contributions
+of all forms. The sections below will help you get started with development,
+testing, and documentation.</p>
+<p>You can also join <code class="docutils literal notranslate"><span class="pre">#pypa</span></code> (general packaging discussion and user support) and
+<code class="docutils literal notranslate"><span class="pre">#pypa-dev</span></code> (discussion about development of packaging tools) <a class="reference external" href="https://webchat.freenode.net/?channels=%23pypa-dev,pypa">on Freenode</a>,
+or the <a class="reference external" href="https://mail.python.org/mailman3/lists/distutils-sig.python.org/">distutils-sig mailing list</a>, to ask questions or get involved.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#get-the-source-code">Get the source code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#development-environment">Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#running-pip-from-source-tree">Running pip From Source Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#running-linters">Running Linters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#building-documentation">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html#what-next">What Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pip-s-internals">Pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#submitting-pull-requests">Submitting Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#automated-testing">Automated Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#news-entries">NEWS Entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#updating-your-branch">Updating your branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#becoming-a-maintainer">Becoming a maintainer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">Continuous Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ci.html#supported-interpreters">Supported interpreters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html#checks">Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html#services">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html#current-run-tests">Current run tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="issue-triage.html">Issue Triage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html#issue-tracker">Issue Tracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html#triage-issues">Triage Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html#common-issues">Common issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html">Broad functionality overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/anatomy.html">Repository anatomy &amp; directory structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/configuration-files.html">Configuration File Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/package-finding.html">Finding and choosing files (<code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/upgrade-options.html">Options that control the installation process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release-process.html">Release process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#release-cadence">Release Cadence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#deprecation-policy">Deprecation Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#feature-flags">Feature Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#id1">Release Process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html#rationale">Rationale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html#modifications">Modifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html#automatic-vendoring">Automatic Vendoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html#debundling">Debundling</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>pip’s development documentation has been rearranged and some older
+references might be broken.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+
+
+  
+
+
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issue-triage.html">Issue Triage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/index.html">Architecture of pip’s internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html">Release process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring-policy.html">Vendoring Policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../news.html">Changelog</a></li>
+</ul>
+
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../reference/pip_debug.html"
+                        title="previous chapter">pip debug</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="getting-started.html"
+                        title="next chapter">Getting Started</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="getting-started.html" title="Getting Started"
+             >next</a></li>
+        <li class="right" >
+          <a href="../reference/pip_debug.html" title="pip debug"
+             >previous</a> |</li>
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://pypa.io">PyPA</a> &#187;</li>
+    
+    <a href="../index.html">pip 20.2.dev1 documentation</a> &#187;
+    
+
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">Copyright</a> 2008-2020, PyPA.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on Jul 19, 2020.
+    <a href="https://github.com/pypa/pip/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.4.3.
+    </div>
+
+  </body>
+</html>
